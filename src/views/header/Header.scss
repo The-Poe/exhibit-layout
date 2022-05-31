@@ -1,0 +1,56 @@
+@import '../../globalCss/_variables.scss';
+@import '../../globalCss/_mixin.scss';
+// TODO: RWD 
+
+.headerContainer {
+    position: relative;
+    height: 10vh;
+    max-height: 70px;
+    background-color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.title {
+    @include absobuteLoc(50%, 50%);
+    color: $cPurple;
+    font-size: calc(10px + 2vmin);
+
+    a {
+        color: $cPurple;
+        text-decoration: none;
+    }
+}
+
+
+.sign {
+    padding: 0 10px;
+
+    @include animHoverUp;
+
+    a {
+        text-decoration: none;
+        color: $cGray;
+    }
+
+    //TODO: replace with
+    // @include pad {
+    //     &::before {
+    //         content: url(https://icons.veryicon.com/png/o/phone/jj/login-19.png);
+    //     }
+    // }
+
+    @include mobile {
+        display: none;
+    }
+}
+
+.cart {
+    margin: 0 2vw 0 1vw;
+    width: 40px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

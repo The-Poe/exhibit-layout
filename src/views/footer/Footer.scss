@@ -1,0 +1,197 @@
+@import '../../globalCss/_variables.scss';
+@import '../../globalCss/_mixin.scss';
+
+.footerContainer {
+    position: relative;
+    height: 40vh;
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+/*subscribe area*/
+.subscContainer {
+    @include BGPic("https://images.unsplash.com/photo-1536768767433-cc552f38def9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+    flex-basis: 80%;
+    color: white;
+}
+
+.subscTexts {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 10%;
+}
+
+.subscText {
+    margin: 10px 0;
+    font-weight: 800;
+    letter-spacing: 0.1vmin;
+    font-size: calc(16px + 1vmin);
+}
+
+.subscInputContainer {
+    margin-top: 10px;
+    flex-basis: 30%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+:root {
+    --input-color: black;
+    --input-border: #CDD9ED;
+    --input-background: #fff;
+    --input-placeholder: #CBD1DC;
+
+    --input-border-focus: #CBD1DC;
+
+    --group-color: white;
+    --group-border: var(--input-border);
+    --group-background: rgb(227, 18, 119);
+
+    --group-color-focus: #fff;
+    --group-border-focus: var(--input-border-focus);
+    --group-background-focus: rgb(248, 1, 121);
+
+}
+
+.form-field {
+    display: block;
+    padding: 8px 16px;
+    line-height: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 6px;
+    -webkit-appearance: none;
+    color: var(--input-color);
+    border: 1px solid var(--input-border);
+    background: var(--input-background);
+    transition: border .3s ease;
+
+    &::placeholder {
+        color: var(--input-placeholder);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: var(--input-border-focus);
+    }
+}
+
+.form-group {
+    position: relative;
+    display: flex;
+
+    &>span,
+    .form-field {
+        white-space: nowrap;
+        display: block;
+
+        &:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        &:first-child {
+            border-radius: 6px 0 0 6px;
+        }
+
+        &:last-child {
+            border-radius: 0 6px 6px 0;
+        }
+
+        &:not(:first-child) {
+            margin-left: -1px;
+        }
+    }
+
+    .form-field {
+        position: relative;
+        z-index: 1;
+        flex: 1 1 auto;
+        width: 1%;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    &>span {
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 25px;
+        color: var(--group-color);
+        background: var(--group-background);
+        border: 1px solid var(--group-border);
+        transition: background .3s ease, border .3s ease, color .3s ease;
+    }
+
+    &:focus-within {
+        &>span {
+            color: var(--group-color-focus);
+            background: var(--group-background-focus);
+            border-color: var(--group-border-focus);
+        }
+    }
+}
+
+
+
+// .subscInputs {
+//     display: flex;
+// }
+
+// .inputEmail {
+//     height: 3em;
+//     border-radius: 5px 0 0 5px;
+// }
+
+// .inputEmailsent {
+//     background-color: $cPink;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     border-radius: 0 5px 5px 0;
+//     padding: 0 10px;
+//     transform: scale(1, 1) translate(-50px, 0);
+
+//     &:hover {
+//         cursor: pointer;
+//     }
+// }
+
+/*buttom info bar*/
+.infoBar {
+    flex-basis: 20%;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: white;
+}
+
+.infoTitContainer {
+    @include absobuteLoc(50%, 10%);
+    color: $cPurple;
+    font-size: calc(10px + 2vmin);
+    display: flex;
+}
+
+.iSubTitle {
+    color: black;
+    margin: 0 1vw;
+    align-self: flex-end;
+}
+
+.iSub1 {
+    font-size: calc(16px + 1vmin);
+}
+
+.iSub2 {
+    font-size: calc(1px + 1.5vmin);
+    padding-bottom: 0.3vmin;
+}
+
+/* .sign is defined in Header.scss*/

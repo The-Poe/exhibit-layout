@@ -1,0 +1,60 @@
+@import './_variables.scss';
+
+/*color*/
+/*babkground*/
+.bgWhite {
+    background-color: white;
+}
+
+.bgPurple {
+    background-color: $cPurple;
+}
+
+.bgPink {
+    background-color: $cPink;
+}
+
+/*text*/
+.textWhite {
+    color: white;
+}
+
+.textPurple {
+    color: $cPurple;
+}
+
+.textBlack {
+    color: black;
+}
+
+.textNoUnderline {
+    text-decoration: none;
+}
+
+/*border*/
+.borPurple {
+    border: 1px solid $cPurple;
+}
+
+.borPink {
+    border: 1px solid $cPink;
+}
+
+.borWhite {
+    border: 1px solid white;
+}
+
+/*flexbox*/
+.jcfs {
+    justify-content: flex-start;
+
+}
+
+.jcfe {
+    justify-content: flex-end;
+}
+
+/*display*/
+.inlBlk {
+    display: inline-block;
+}
