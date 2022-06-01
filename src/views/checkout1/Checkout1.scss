@@ -1,0 +1,296 @@
+@import '../../globalCss/_variables.scss';
+@import '../../globalCss/_mixin.scss';
+
+
+.chkout1Container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 90vh;
+
+    /*fill the rest page(header lefting space)*/
+    @include pad {
+        flex-wrap: nowrap;
+        height: auto;
+    }
+
+    .sectionProgress {
+        padding: 20px;
+        height: 10vh;
+        width: 60vw;
+
+        @include pad {
+            height: auto;
+            width: 100%;
+        }
+
+        .progress {
+            @include inlineBar($cPink, 100%, 1px, 0, 0, 0.5em, 0);
+            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
+        }
+
+        .progessStatuses {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .progessStatus {
+            position: relative;
+        }
+
+        .progressDot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid $cPink;
+            left: 50%;
+            top: -15px;
+        }
+    }
+
+    .chkoutContent {
+        width: 60vw;
+        max-height: 70vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0.2vw;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: #a5a5a5;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #777676;
+        }
+
+        @include pad {
+            order: 3;
+            height: 70vh;
+            width: 100vw;
+            overflow-x: hidden;
+            overflow-y: visible;
+        }
+
+        .chkoutItems {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .chkoutItem {
+                padding: 2vmin 1vmin;
+                width: 98%;
+                margin: 0.5vmin 0;
+                display: flex;
+                background-color: white;
+                border-radius: 5px;
+
+                .deleteItemWrapper {
+                    flex-basis: 10%;
+                    order: 5;
+                    display: inline-block;
+                    width: 4vmin;
+                    position: relative;
+                    margin: 0 1vw;
+
+                    .deleteItem {
+                        position: absolute;
+                        top: 39.5%;
+                        cursor: pointer;
+                        font-size: 1.5em;
+                    }
+                }
+
+                .itemPic {
+                    flex-basis: 30%;
+                }
+
+                .itemInfo {
+                    flex-basis: 30%;
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    margin: 0 1vw;
+
+                    .itemInfoTitle {
+                        font-size: calc(3px + 1.8vmax);
+                        font-weight: 700;
+                        margin-bottom: 1vmin;
+
+                        @include pad {
+                            font-size: calc(8px + 2vmin);
+                        }
+                    }
+
+                    .itemInfoDate {
+                        font-size: calc(4px + 1.4vmax);
+                        margin-bottom: 1vmin;
+
+                        .mh {
+                            margin: 0 0.2vw;
+                        }
+
+                        .inlineBar {
+                            @include inlineBar(black, 1em, 1px, 0, -0.25em, 0, 0.2vw);
+                        }
+
+                        @include pad {
+                            font-size: calc(8px + 2vmin);
+                        }
+
+                    }
+
+                    .itemInfoType {
+                        font-size: calc(3px + 1.2vmax);
+                        color: $cGray;
+                        margin-bottom: 1vmin;
+
+                        @include pad {
+                            font-size: calc(5px + 2vmin);
+                        }
+                    }
+
+                    @include pad {
+                        padding-left: 3vw;
+
+                        .mh {
+                            margin: 0 1.5vw;
+                        }
+                    }
+                }
+
+                .itemInfoPrice {
+                    flex-basis: 20%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    font-size: calc(3px + 1.8vmax);
+                    font-weight: 800;
+                    margin: 0 1vw;
+
+                    @include pad {
+                        font-size: calc(8px + 2vmin);
+                    }
+                }
+
+                .itemAdjust {
+                    flex-basis: 20%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: calc(7px + 1.5vmin);
+                    margin: 0 1vw;
+
+                    .mh {
+                        margin: 0 0.5vw;
+                    }
+
+                    .minusWrapper {
+                        height: 30px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        margin: 0 1vmin;
+
+                        .minus {
+                            @include inlineBar(black, 0.8em, 0, 0, 0, 0, 0.2vw);
+                            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
+
+                        }
+                    }
+
+
+                    .plus {
+                        font-size: calc(20px + 1.5vmin);
+                        transform: translate(-0.1em, -0.12em);
+                        cursor: pointer;
+                    }
+
+                    @include pad {
+                        margin-right: 3vw;
+
+                        .mh {
+                            margin: 0 1.5vw;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    .rewind {
+        width: 60vw;
+        height: 10vh;
+        display: flex;
+        align-items: center;
+
+        @include pad {
+            display: none;
+        }
+    }
+
+    .chkoutCustomInfo {
+        height: 80vh;
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        .summing {
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: calc(3px + 2vmax);
+            font-weight: 700;
+            padding-bottom: 5%;
+
+            .mh {
+                margin: 0 0.5em;
+            }
+
+            // .subtotalText{}
+            // .subtotalInfo{}
+        }
+
+        @include pad {
+            height: auto;
+            width: 50VW;
+            align-self: end;
+        }
+    }
+
+    .chkoutConfirm {
+        height: 10vh;
+        width: 40vw;
+        display: flex;
+        flex-direction: column;
+
+        @include pad {
+            height: auto;
+            width: 50VW;
+            align-self: end;
+        }
+
+        .BtnNext {
+            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
+            //@include rectBtn($ml, $mr, $pv, $ph, $br);
+            text-align: center;
+            width: auto;
+            background-color: $cPink;
+        }
+    }
+
+}

@@ -2,6 +2,8 @@ import React from "react";
 import "./Detail.scss";
 import fbIcon from "../../images/fbIcon.svg";
 import { NavBar } from "../navBar/NavBar";
+import { Guess } from "../guess/Guess";
+import { Footer } from "../footer/Footer";
 
 export function Detail() {
   return (
@@ -113,6 +115,8 @@ export function Detail() {
           </div>
         </div>
       </section>
+      <Guess />
+      <Footer />
     </>
   );
 }

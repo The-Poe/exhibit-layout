@@ -9,11 +9,13 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Counter } from "./features/counter/Counter";
 import "./App.scss";
 import { Header } from "./views/header/Header";
-import { Guess } from "./views/guess/Guess";
-import { Footer } from "./views/footer/Footer";
 import { Detail } from "./views/detail/Detail";
 import { Home } from "./views/home/Home";
 import { Product } from "./views/product/Product";
+import { Checkout1 } from "./views/checkout1/Checkout1";
+import { Checkout2 } from "./views/checkout2/Checkout2";
+import { Checkout3 } from "./views/checkout3/Checkout3";
+import { Checkout4 } from "./views/checkout4/Checkout4";
 
 function App() {
   return (
@@ -30,12 +32,22 @@ function App() {
           <Route path="/detail">
             <Detail />
           </Route>
+          <Route exact path="/checkout1">
+            <Checkout1 />
+          </Route>
+          <Route exact path="/checkout2">
+            <Checkout2 />
+          </Route>
+          <Route exact path="/checkout3">
+            <Checkout3 />
+          </Route>
+          <Route exact path="/checkout4">
+            <Checkout4 />
+          </Route>
           {/* <Route path="*">
             <PageNotFound />
           </Route> */}
         </Switch>
-        <Guess />
-        <Footer />
       </div>
     </Router>
   );

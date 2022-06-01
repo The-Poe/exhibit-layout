@@ -1,0 +1,78 @@
+@import '../../globalCss/_variables.scss';
+@import '../../globalCss/_mixin.scss';
+
+
+.chkout4Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 10% 20%;
+    height: 90vh;
+
+    @include pad {
+        padding: 10% 3%;
+        height: auto;
+    }
+
+    .iconContainer {
+        .checkIcon {
+            color: $cPurple;
+        }
+
+        .checkText {
+            color: $cPurple;
+            font-size: calc(8px + 1vmax);
+            font-weight: 600;
+            margin-top: 1vh;
+            margin-bottom: 1vh;
+        }
+
+    }
+
+    .confirmText1 {
+        align-self: flex-start;
+        font-size: calc(8px + 1vmax);
+        font-weight: 600;
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
+
+
+    .ticketCode {
+        color: $cPurple;
+        font-size: calc(15px + 1vmax);
+        font-weight: 600;
+
+    }
+
+    .confirmText2 {
+        align-self: flex-start;
+        font-size: calc(8px + 1vmax);
+        line-height: 1.5;
+        letter-spacing: 0.2vw;
+        font-weight: 600;
+        margin-top: 5vh;
+        margin-bottom: 15vh;
+    }
+
+
+
+    .btnsContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .btn {
+            @include rectBtn(0, 0, 0.5em, 13vw, 3px);
+            width: inherit;
+            margin: 0 1vw;
+            padding: 0.5em 0;
+
+            @include pad {
+                padding: 0.8em 0;
+            }
+        }
+    }
+
+}

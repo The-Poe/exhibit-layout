@@ -6,6 +6,8 @@ import picShow2 from "../../images/show2.jpg";
 import picShow3 from "../../images/show3.jpg";
 import { NavBar } from "../navBar/NavBar";
 import { SlideShow } from "../slideShow/SlideShow";
+import { Guess } from "../guess/Guess";
+import { Footer } from "../footer/Footer";
 
 // import picHit1 from "https://images.unsplash.com/photo-1545987796-b199d6abb1b4?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8Mzd8NjIyNDgyMjB8fGVufDB8fHx8&auto=format&fit=crop&w=500";
 
@@ -99,6 +101,8 @@ export function Home() {
           </div>
         </section>
       </main>
+      <Guess />
+      <Footer />
     </>
   );
 }

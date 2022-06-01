@@ -22,10 +22,8 @@
     margin: 0 calc(1px + 1vmin);
     border: 2px solid transparent;
     position: relative;
+
     /*for ::after*/
-
-
-
     @include mobile {
         padding: 6px 0.1vmin;
     }
