@@ -28,8 +28,6 @@ export function Cart() {
             <div
               className="itemPic"
               style={{
-                width: "12vmax",
-                height: "12vmax",
                 background:
                   "no-repeat center center url(https://images.unsplash.com/photo-1545178803-4056771d60a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
                 backgroundSize: "cover",
@@ -64,8 +62,6 @@ export function Cart() {
             <div
               className="itemPic"
               style={{
-                width: "12vmax",
-                height: "12vmax",
                 background:
                   "no-repeat center center url(https://images.unsplash.com/photo-1545987796-b199d6abb1b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
                 backgroundSize: "cover",
@@ -99,8 +95,6 @@ export function Cart() {
             <div
               className="itemPic"
               style={{
-                width: "12vmax",
-                height: "12vmax",
                 background:
                   "no-repeat center center url(https://images.unsplash.com/photo-1596649300028-340ad0ec6146?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
                 backgroundSize: "cover",

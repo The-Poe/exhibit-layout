@@ -236,28 +236,37 @@
 
     }
 
-    .rewind {
-        width: 60vw;
+    .chkoutConfirm {
         height: 10vh;
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
         display: flex;
-        align-items: flex-start;
-        padding-left: 5vw;
-
-        .rewindBtn {
-            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
-
-            //@include rectBtn($ml, $mr, $pv, $ph, $br);
-            @include pad {
-                padding: 0.95em 18vw;
-                transform: translate(-2.5vw, 2vh);
-            }
-        }
+        justify-content: space-between;
+        align-items: center;
 
         @include pad {
-            order: 4; // display: none;
+            position: static;
+            order: 5;
             height: auto;
-            width: 50VW;
-            align-self: start;
+            width: 100%;
+            padding-bottom: 3vh;
+        }
+
+        .btnRewind {
+            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
+        }
+
+        .btnNext {
+            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
+            //@include rectBtn($ml, $mr, $pv, $ph, $br);
+            width: 40%;
+            background-color: $cPink;
+
+            @include pad {
+                width: fit-content;
+                padding: 1em 18vw;
+            }
         }
     }
 
@@ -336,7 +345,7 @@
                 align-items: center;
                 font-size: calc(6px + 1vmax);
                 font-weight: 700;
-                padding-bottom: 2vh;
+                padding-bottom: 1vh;
 
                 .mh {
                     margin: 0 0.5em;
@@ -351,33 +360,6 @@
             }
         }
 
-    }
-
-    .chkoutConfirm {
-        height: 10vh;
-        width: 40vw;
-        display: flex;
-        flex-direction: column;
-
-        @include pad {
-            order: 5;
-            height: auto;
-            width: 50VW;
-            align-self: end;
-        }
-
-        .BtnNext {
-            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
-            //@include rectBtn($ml, $mr, $pv, $ph, $br);
-            width: auto;
-            background-color: $cPink;
-
-            @include pad {
-                width: fit-content;
-                padding: 1em 18vw;
-                transform: translate(2.5vw, -3vh);
-            }
-        }
     }
 
 }

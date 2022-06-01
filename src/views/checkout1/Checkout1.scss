@@ -120,11 +120,11 @@
                     color: black;
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
+                    justify-content: space-evenly;
                     margin: 0 1vw;
 
                     .itemInfoTitle {
-                        font-size: calc(3px + 1.8vmax);
+                        font-size: calc(3px + 1.5vmax);
                         font-weight: 700;
                         margin-bottom: 1vmin;
 
@@ -134,7 +134,7 @@
                     }
 
                     .itemInfoDate {
-                        font-size: calc(4px + 1.4vmax);
+                        font-size: calc(4px + 1.3vmax);
                         margin-bottom: 1vmin;
 
                         .mh {
@@ -152,7 +152,7 @@
                     }
 
                     .itemInfoType {
-                        font-size: calc(3px + 1.2vmax);
+                        font-size: calc(3px + 1vmax);
                         color: $cGray;
                         margin-bottom: 1vmin;
 
@@ -230,16 +230,40 @@
 
     }
 
-    .rewind {
-        width: 60vw;
+    .chkoutConfirm {
         height: 10vh;
+        position: absolute;
+        bottom: 0;
+        width: 100vw;
         display: flex;
+        justify-content: space-between;
         align-items: center;
 
         @include pad {
-            display: none;
+            position: static;
+            order: 5;
+            height: auto;
+            width: 100%;
+            padding-bottom: 3vh;
+        }
+
+        .btnRewind {
+            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
+        }
+
+        .btnNext {
+            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
+            //@include rectBtn($ml, $mr, $pv, $ph, $br);
+            width: 40%;
+            background-color: $cPink;
+
+            @include pad {
+                width: fit-content;
+                padding: 1em 18vw;
+            }
         }
     }
+
 
     .chkoutCustomInfo {
         height: 80vh;
@@ -266,31 +290,10 @@
         }
 
         @include pad {
+            order: 4;
             height: auto;
             width: 50VW;
             align-self: end;
         }
     }
-
-    .chkoutConfirm {
-        height: 10vh;
-        width: 40vw;
-        display: flex;
-        flex-direction: column;
-
-        @include pad {
-            height: auto;
-            width: 50VW;
-            align-self: end;
-        }
-
-        .BtnNext {
-            @include rectBtn(0.5em, 0.5em, 0.8em, 1.5em, 3px);
-            //@include rectBtn($ml, $mr, $pv, $ph, $br);
-            text-align: center;
-            width: auto;
-            background-color: $cPink;
-        }
-    }
-
 }

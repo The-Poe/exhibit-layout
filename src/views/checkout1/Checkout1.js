@@ -138,7 +138,14 @@ export function Checkout1() {
             {/* repeate ^^^ */}
           </div>
         </div>
-        <div className="rewind">&nbsp;</div>
+        <div className="chkoutConfirm">
+          <a href="/" className="invisible btnRewind borPurple textPurple">
+            返回
+          </a>
+          <a href="/checkout2" className="btnNext textWhite bgPurple">
+            下一步
+          </a>
+        </div>
         <div className="chkoutCustomInfo">
           <div className="summing">
             <span className="subtotalText mh">小計</span>
@@ -147,11 +154,6 @@ export function Checkout1() {
               <span className="infoTotal">1050</span>
             </span>
           </div>
-        </div>
-        <div className="chkoutConfirm">
-          <a href="/checkout2">
-            <div className="BtnNext textWhite bgPurple">下一步</div>
-          </a>
         </div>
       </div>
     </>

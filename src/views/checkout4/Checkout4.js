@@ -20,7 +20,7 @@ export function Checkout4() {
           於展覽入口頁面輸入「展覽憑證代碼」，經驗證無誤即可瀏覽。
         </div>
         <div className="btnsContainer">
-          <a href="/home" className="btn borPurple bgWhite textPurple">
+          <a href="/" className="btn borPurple bgWhite textPurple">
             繼續瀏覽
           </a>
           <a href="/product" className="btn bgPink textWhite">

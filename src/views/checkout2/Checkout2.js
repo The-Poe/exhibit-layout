@@ -138,8 +138,13 @@ export function Checkout2() {
             {/* repeate ^^^ */}
           </div>
         </div>
-        <div className="rewind">
-          <div className="rewindBtn borPurple textPurple">返回</div>
+        <div className="chkoutConfirm">
+          <a href="/checkout1" className="btnRewind borPurple textPurple">
+            返回
+          </a>
+          <a href="/checkout3" className="btnNext textWhite bgPurple">
+            下一步
+          </a>
         </div>
         <div className="chkoutCustomInfo">
           <div className="customerFormWrapper">
@@ -199,12 +204,6 @@ export function Checkout2() {
               </span>
             </div>
           </div>
-        </div>
-
-        <div className="chkoutConfirm">
-          <a href="/checkout3">
-            <div className="BtnNext textWhite bgPurple">下一步</div>
-          </a>
         </div>
       </div>
     </>
