@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/exhibit-layout/static/css/main.07d2822d.css",
-    "main.js": "/exhibit-layout/static/js/main.aea00403.js",
+    "main.css": "/exhibit-layout/static/css/main.77cda3e1.css",
+    "main.js": "/exhibit-layout/static/js/main.80e43c47.js",
     "static/js/787.db548d21.chunk.js": "/exhibit-layout/static/js/787.db548d21.chunk.js",
     "static/media/show1.jpg": "/exhibit-layout/static/media/show1.abe6deb1771bb59ecb9f.jpg",
     "static/media/show3.jpg": "/exhibit-layout/static/media/show3.7cc073af3b5620c2e5e3.jpg",
@@ -9,12 +9,13 @@
     "static/media/ticketIcon.svg": "/exhibit-layout/static/media/ticketIcon.1e5ef82f06f64c452ef31b586af9522a.svg",
     "index.html": "/exhibit-layout/index.html",
     "static/media/fbIcon.svg": "/exhibit-layout/static/media/fbIcon.adc6f2212403d80bcfd14c9be86dab9a.svg",
-    "main.07d2822d.css.map": "/exhibit-layout/static/css/main.07d2822d.css.map",
-    "main.aea00403.js.map": "/exhibit-layout/static/js/main.aea00403.js.map",
+    "static/media/checkIcon.svg": "/exhibit-layout/static/media/checkIcon.545a0e2f1cca9e36ac049d98e2ac68e5.svg",
+    "main.77cda3e1.css.map": "/exhibit-layout/static/css/main.77cda3e1.css.map",
+    "main.80e43c47.js.map": "/exhibit-layout/static/js/main.80e43c47.js.map",
     "787.db548d21.chunk.js.map": "/exhibit-layout/static/js/787.db548d21.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.07d2822d.css",
-    "static/js/main.aea00403.js"
+    "static/css/main.77cda3e1.css",
+    "static/js/main.80e43c47.js"
   ]
 }
