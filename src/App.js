@@ -14,11 +14,11 @@ import AuthForm from "components/features/auth/AuthForm";
 
 function App() {
   const authIsShow = useSelector((state) => state.UIAuthSlice.authIsShow);
-  const authUser = useSelector((state) => state.AuthUserSlice.authUser);
+  // const authUser = useSelector((state) => state.AuthUserSlice.authUser);
   const dispatch = useDispatch();
-  const showAuthUserHangdler = () => {
-    console.log("authUser:", JSON.parse(authUser));
-  };
+  // const showAuthUserHangdler = () => {
+  //   console.log("authUser:", JSON.parse(authUser));
+  // };
   const toggleShowAuthHangdler = () => {
     dispatch(UIAuthActions.toggleShowAuth());
   };
@@ -28,7 +28,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <button onClick={showAuthUserHangdler}>show Auth User</button>
+        {/* <button onClick={showAuthUserHangdler}>show Auth User</button> */}
         <ShowModal
           className={authClasses}
           modalLayer="second"

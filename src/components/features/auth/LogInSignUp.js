@@ -1,4 +1,4 @@
-import styles from "./LogInSignIn.module.scss";
+import styles from "./LogInSignUp.module.scss";
 import { UIAuthActions } from "store/UISlices";
 import { useDispatch } from "react-redux";
 
