@@ -1,0 +1,33 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+.guesses {
+    margin: 5px 0px;
+    display: flex;
+
+    @include pad {
+        flex-direction: column;
+    }
+}
+
+.guessItem {
+    width: 40vw;
+    margin: 10px 2vmax;
+
+    @include pad {
+        width: 80vw;
+        margin: 10px 0;
+    }
+}
+
+.guessTitle {
+    font-size: calc(10px + 1vmin);
+    margin: 0.5em 0;
+    letter-spacing: 2px;
+}
+
+.guessPrice {
+    font-size: calc(5px + 1vmin);
+    margin: 0.5em 0;
+    letter-spacing: 2px;
+}

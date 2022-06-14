@@ -1,26 +1,40 @@
-// import logo from "./acnhLogo.png";
-// import { Navbar } from "./features/navbar/Navbar";
-// import { Home } from "./features/home/Home";
-// import { About } from "./features/about/";
-// import { Contact } from "./features/contact/Contact";
-// import { PageNotFound } from "./features/pageNotFound/PageNotFound";
-
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { Counter } from "./features/counter/Counter";
 import "./App.scss";
-import { Header } from "./views/header/Header";
-import { Detail } from "./views/detail/Detail";
-import { Home } from "./views/home/Home";
-import { Product } from "./views/product/Product";
-import { Checkout1 } from "./views/checkout1/Checkout1";
-import { Checkout2 } from "./views/checkout2/Checkout2";
-import { Checkout3 } from "./views/checkout3/Checkout3";
-import { Checkout4 } from "./views/checkout4/Checkout4";
+import Header from "components/layout/header/Header";
+import Detail from "components/pages/detail/Detail";
+import Home from "components/layout/home/Home";
+import Product from "components/pages/product/Product";
+import Checkout from "components/pages/checkout/Checkout";
+import CheckoutDone from "components/pages/checkout/CheckoutDone";
+import { useSelector, useDispatch } from "react-redux";
+import { UIAuthActions } from "store/UISlices";
+import ShowModal from "components/features/showModal/ShowModal";
+import AuthForm from "components/features/auth/AuthForm";
 
 function App() {
+  const authIsShow = useSelector((state) => state.UIAuthSlice.authIsShow);
+  const authUser = useSelector((state) => state.AuthUserSlice.authUser);
+  const dispatch = useDispatch();
+  const showAuthUserHangdler = () => {
+    console.log("authUser:", JSON.parse(authUser));
+  };
+  const toggleShowAuthHangdler = () => {
+    dispatch(UIAuthActions.toggleShowAuth());
+  };
+
+  const authClasses = [authIsShow ? "opacity1" : "invisible opacity0"];
+
   return (
     <Router>
       <div className="App">
+        <button onClick={showAuthUserHangdler}>show Auth User</button>
+        <ShowModal
+          className={authClasses}
+          modalLayer="second"
+          onClose={toggleShowAuthHangdler}
+          ModalContent={<AuthForm onClose={toggleShowAuthHangdler} />}
+        />
         <Header />
         <Switch>
           <Route exact path="/">
@@ -32,17 +46,11 @@ function App() {
           <Route path="/detail">
             <Detail />
           </Route>
-          <Route exact path="/checkout1">
-            <Checkout1 />
+          <Route exact path="/checkout">
+            <Checkout />
           </Route>
-          <Route exact path="/checkout2">
-            <Checkout2 />
-          </Route>
-          <Route exact path="/checkout3">
-            <Checkout3 />
-          </Route>
-          <Route exact path="/checkout4">
-            <Checkout4 />
+          <Route exact path="/checkoutdone">
+            <CheckoutDone />
           </Route>
           {/* <Route path="*">
             <PageNotFound />

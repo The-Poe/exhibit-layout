@@ -1,0 +1,430 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+
+.chkoutContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 80vh;
+
+    /*fill the rest page(header lefting space)*/
+    @include pad {
+        flex-wrap: nowrap;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    .sectionProgress {
+        padding: 20px;
+        height: 10vh;
+        width: 60vw;
+
+        @include pad {
+            order: 1;
+            height: auto;
+            width: 100%;
+        }
+
+        .progress {
+            @include inlineBar($cPink, 100%, 1px, 0, 0, 0.5em, 0);
+            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
+        }
+
+        .progessStatuses {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .progessStatus {
+            position: relative;
+        }
+
+        .progressDot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid $cPink;
+            left: 50%;
+            top: -15px;
+        }
+    }
+
+    .chkoutContent {
+        width: 60vw;
+        height: 70vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0.2vw;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: #a5a5a5;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #777676;
+        }
+
+        @include pad {
+            order: 3;
+            height: auto;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
+        }
+
+        .chkoutItems {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include pad {
+                padding: 3vh 0;
+            }
+
+            .chkoutItem {
+                padding: 2vmin 2vmin;
+                margin: 0.5vmin 0;
+                display: flex;
+                background-color: white;
+                border-radius: 5px;
+
+                @include pad {
+                    width: 100%;
+                }
+
+                .deleteItemWrapper {
+                    flex-basis: 10%;
+                    order: 5;
+                    display: inline-block;
+                    width: 4vmin;
+                    margin: 0 1vw;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .deleteItem {
+                        top: 39.5%;
+                        cursor: pointer;
+                        font-size: 1.5em;
+                    }
+                }
+
+                .itemPic {
+                    flex-basis: 30%;
+                }
+
+                .itemInfo {
+                    flex-basis: 30%;
+                    color: black;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: spaceb-evenly;
+                    margin: 0 1vw;
+
+                    .itemInfoTitle {
+                        font-size: calc(3px + 1.5vmax);
+                        font-weight: 700;
+                        margin-bottom: 1vmin;
+
+                        @include pad {
+                            font-size: calc(8px + 2vmin);
+                        }
+                    }
+
+                    .itemInfoDate {
+                        font-size: calc(4px + 1.3vmax);
+                        margin-bottom: 1vmin;
+
+                        .mh {
+                            margin: 0 0.2vw;
+                        }
+
+                        .inlineBar {
+                            @include inlineBar(black, 1em, 1px, 0, -0.25em, 0, 0.2vw);
+                        }
+
+                        @include pad {
+                            font-size: calc(8px + 2vmin);
+                        }
+
+                    }
+
+                    .itemInfoType {
+                        font-size: calc(3px + 1vmax);
+                        color: $cGray;
+                        margin-bottom: 1vmin;
+
+                        @include pad {
+                            font-size: calc(5px + 2vmin);
+                        }
+                    }
+
+                    @include pad {
+                        padding-left: 3vw;
+
+                        .mh {
+                            margin: 0 1.5vw;
+                        }
+                    }
+                }
+
+                .itemInfoPrice {
+                    flex-basis: 20%;
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    font-size: calc(3px + 1.8vmax);
+                    font-weight: 800;
+                    margin: 0 1vw;
+
+                    @include pad {
+                        font-size: calc(8px + 2vmin);
+                    }
+                }
+
+                .itemAdjust {
+                    flex-basis: 20%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: calc(7px + 1.5vmin);
+                    margin: 0 1vw;
+
+                    .mh {
+                        margin: 0 0.5vw;
+                    }
+
+                    .minusWrapper {
+                        height: 30px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        padding-top: 0.2rem;
+
+                        .minus {
+                            @include inlineBar(black, 0.8em, 0, 0, 0, 0, 0.2vw);
+                            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
+
+                        }
+                    }
+
+
+                    .plus {
+                        font-size: calc(20px + 1.5vmin);
+                        cursor: pointer;
+                        padding-bottom: 0.3rem;
+                    }
+
+                    @include pad {
+                        margin-right: 3vw;
+
+                        .mh {
+                            margin: 0 1.5vw;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    .chkoutCustomInfo {
+        height: 80vh;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 12vh 5vw 0 0;
+
+        @include pad {
+            order: 2;
+            padding: 0 5vw 0 0;
+            height: auto;
+            width: 100VW;
+        }
+
+        .customerFormWrapper {
+            padding: 1vh 2vw;
+
+            @include pad {
+                padding: 3vh 2vw;
+            }
+
+            .formTitle {
+                font-size: calc(10px + 1vmax);
+                font-weight: 700;
+                margin: 2vh 0;
+            }
+
+            .formField {
+                font-size: calc(5px + 1vmax);
+                margin: 2vh 0;
+
+                label {
+                    padding-bottom: 0.2vh;
+                    font-weight: 600;
+                }
+
+                input {
+                    font-size: calc(4px + 1vmax);
+                    width: 100%;
+                    height: 2em;
+                    margin-top: 1vh;
+                    padding: 1vmax 1.2vmax;
+
+                    border: unset;
+                    border-radius: 4px;
+                    outline-color: rgb(84 105 212 / 0.5);
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+                }
+
+                .isCoupleEffect {
+                    padding: 1vmax 0;
+                    float: right;
+                    color: $cPurple;
+                }
+
+            }
+
+        }
+
+        .customerFormWrapper {
+            padding: 1vh 2vw;
+
+            @include pad {
+                padding: 3vh 2vw;
+            }
+
+            .formTitle {
+                font-size: calc(10px + 1vmax);
+                font-weight: 700;
+                margin: 2vh 0;
+            }
+
+            .formField {
+                font-size: calc(5px + 1vmax);
+                margin: 2vh 0;
+
+                label {
+                    padding-bottom: 0.2vh;
+                    font-weight: 600;
+                }
+
+                input {
+                    font-size: calc(4px + 1vmax);
+                    width: 100%;
+                    height: 2em;
+                    margin-top: 1vh;
+                    padding: 1vmax 1.2vmax;
+
+                    border: unset;
+                    border-radius: 4px;
+                    outline-color: rgb(84 105 212 / 0.5);
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+                }
+
+                .isCoupleEffect {
+                    padding: 1vmax 0;
+                    float: right;
+                    color: $cPurple;
+                }
+
+            }
+
+        }
+
+        .subTotalSection {
+
+            @include pad {
+                margin: 0 2%;
+            }
+
+            .summing {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: calc(6px + 1vmax);
+                font-weight: 700;
+                padding-bottom: 1vh;
+
+                .mh {
+                    margin: 0 0.5em;
+                }
+
+                // .subtotalText{}
+                // .subtotalInfo{}
+            }
+
+            .total {
+                font-size: calc(10px + 1vmax);
+            }
+        }
+
+    }
+}
+
+.chkoutConfirm {
+    height: 10vh;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include pad {
+        order: 5;
+        height: auto;
+        width: 100%;
+        padding-bottom: 3vh;
+    }
+
+    .btnRewind {
+        @include rectBtn(6vw, 0, 0.8em, 0, 3px);
+        width: 25%;
+        max-width: 100px;
+
+        @include pad {
+            width: 50%;
+            margin-left: 1vw;
+            max-width: none;
+        }
+    }
+
+    .btnNext {
+        @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+        //@include rectBtn($ml, $mr, $pv, $ph, $br);
+        width: 35%;
+        background-color: $cPink;
+
+        @include pad {
+            width: 50%;
+            margin-right: 1vw;
+        }
+    }
+}
