@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import Header from "components/layout/header/Header";
 import Detail from "components/pages/detail/Detail";
-import Home from "components/layout/home/Home";
+import Home from "components/pages/home/Home";
 import Product from "components/pages/product/Product";
 import Checkout from "components/pages/checkout/Checkout";
 import CheckoutDone from "components/pages/checkout/CheckoutDone";
@@ -11,10 +11,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { UIAuthActions } from "store/UISlices";
 import ShowModal from "components/features/showModal/ShowModal";
 import AuthForm from "components/features/auth/AuthForm";
+import ScrollToTop from "components/features/ScrollToTop";
 
 function App() {
-  const authIsShow = useSelector((state) => state.UIAuthSlice.authIsShow);
-  // const authUser = useSelector((state) => state.AuthUserSlice.authUser);
+  const authIsShow = useSelector((state) => state.UIAuthReducer.authIsShow);
+  // const authUser = useSelector((state) => state.authUserReducer.authUser);
   const dispatch = useDispatch();
   // const showAuthUserHangdler = () => {
   //   console.log("authUser:", JSON.parse(authUser));
@@ -36,6 +37,7 @@ function App() {
           ModalContent={<AuthForm onClose={toggleShowAuthHangdler} />}
         />
         <Header />
+        <ScrollToTop />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -43,7 +45,7 @@ function App() {
           <Route path="/product">
             <Product />
           </Route>
-          <Route path="/detail">
+          <Route path="/detail/:productId">
             <Detail />
           </Route>
           <Route exact path="/checkout">

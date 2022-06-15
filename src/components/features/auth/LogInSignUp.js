@@ -4,13 +4,14 @@ import { useDispatch } from "react-redux";
 
 import { firebaseAuth } from "firebaseConfig";
 import { signOut } from "firebase/auth";
-import { AuthUserActions } from "store/AuthUserSlices";
+import { AuthUserActions } from "store/AuthUserSlice";
 import { useSelector } from "react-redux";
 
 /*To control showing the Auth Form in app.js*/
 /*Both Header and footer has SignIn features*/
 const LogInSignUp = () => {
-  const authUser = useSelector((state) => state.AuthUserSlice.authUser);
+  const authUser = useSelector((state) => state.authUserReducer.authUser);
+  const authUserJSON = JSON.parse(authUser);
 
   const dispatch = useDispatch();
   const toggleShowAuthHangdler = () => {
@@ -25,10 +26,10 @@ const LogInSignUp = () => {
     <>
       <div className={styles.sign}>
         <div
-          // data-before-content="Log in/Sign In"
-          data-before-content={!authUser ? "Log in/Sign Up" : "log Out"}
-          // onClick={toggleShowAuthHangdler}
-          onClick={!authUser ? toggleShowAuthHangdler : logOutAuthUserHangdler}
+          data-before-content={!authUserJSON ? "Log in/Sign Up" : "log Out"}
+          onClick={
+            !authUserJSON ? toggleShowAuthHangdler : logOutAuthUserHangdler
+          }
         ></div>
       </div>
     </>

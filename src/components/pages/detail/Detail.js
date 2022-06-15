@@ -3,8 +3,32 @@ import fbIcon from "images/fbIcon.svg";
 import NavBar from "../../layout/navBar/NavBar";
 import Guess from "../../layout/guess/Guess";
 import Footer from "../../layout/footer/Footer";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "store/CartSlice";
+import { useState } from "react";
 
 const Detail = () => {
+  const products = useSelector((state) => state.productsReducer.items);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  const product = products[productId - 1];
+  const addToCartHandler = () => {
+    dispatch(cartActions.addItemToCart({ product, quantity }));
+    resetTickethandler();
+  };
+
+  const minusTickethandler = () => {
+    if (quantity > 1) setQuantity(quantity - 1);
+  };
+  const plusTickethandler = () => {
+    if (quantity < 100) setQuantity(quantity + 1);
+  };
+  const resetTickethandler = () => {
+    setQuantity(1);
+  };
+
   return (
     <>
       <NavBar />
@@ -17,43 +41,52 @@ const Detail = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
-                backgroundImage:
-                  "url(https://images.unsplash.com/photo-1545987796-b199d6abb1b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)",
+                backgroundImage: `url(${product.picUrl})`,
               }}
             ></div>
             <div className={`${styles.infoDate}`}>
-              <span className={`${styles.dateSpan}`}>01</span>
-              <span className={`${styles.dateSpan}`}>JUN</span>
+              <span className={`${styles.dateSpan}`}>{product.startDate}</span>
+              <span className={`${styles.dateSpan}`}>{product.startMonth}</span>
               <span className={`${styles.sepBar}`}>|</span>
-              <span className={`${styles.dateSpan}`}>31</span>
-              <span className={`${styles.dateSpan}`}>OCT</span>
+              <span className={`${styles.dateSpan}`}>{product.endDate}</span>
+              <span className={`${styles.dateSpan}`}>{product.endMonth}</span>
             </div>
             <div>
               <div className={`${styles.infoTitle}`}>
-                2020 台味設計展
+                {product.title}
                 <span className="iconFb">
                   <img src={fbIcon} alt="" />
                 </span>
               </div>
-              <div className={`${styles.infoDesc}`}>
-                一年一度的台味設計展由經濟部工業局舉辦、台灣創意設計中心執行，每年，針對在地文化、及產業發展特色，運用設計思考全是新時代的意涵，並以展覽呈現在地設計。
-              </div>
+              <div className={`${styles.infoDesc}`}>{product.description}</div>
             </div>
           </div>
           <div className={`${styles.ticketDetail}`}>
             <div className={`${styles.ticketOptions}`}>
               <div className={`${styles.ticketNumber}`}>
-                <div>
-                  <span className={`${styles.ticketText}`}>-</span>
-                  <span className={`${styles.ticketText}`}> 01</span>
-                  <span className={`${styles.ticketText}`}>+</span>
+                <div className={`${styles.ticketNumberTextWrapper}`}>
+                  <span
+                    className={`${styles.ticketText} ${styles.minus} `}
+                    onClick={minusTickethandler}
+                  >
+                    -
+                  </span>
+                  <span className={`${styles.ticketText}`}>{quantity}</span>
+                  <span
+                    className={`${styles.ticketText} ${styles.plus}`}
+                    onClick={plusTickethandler}
+                  >
+                    +
+                  </span>
                 </div>
                 <span className={`${styles.ticketText2}`}>張</span>
               </div>
               <div className={`${styles.sepLine}`}></div>
               <div className={`${styles.ticketPrice}`}>
                 <div>
-                  <span className={`${styles.ticketText}`}>NT$350</span>
+                  <span className={`${styles.ticketText}`}>
+                    NT${product.price}
+                  </span>
                 </div>
                 <div className={`${styles.ticketText2}`}>票種</div>
                 <div className={`${styles.ticketypes}`}>
@@ -71,9 +104,12 @@ const Detail = () => {
                 <span className="inlBlk">收藏</span>
                 <span className="inlBlk">展覽</span>
               </div>
-              <div className={`${styles.ticketBtn} bgPink textWhite`}>
-                <span className="inlBlk">購買</span>
-                <span className="inlBlk">票券</span>
+              <div
+                className={`${styles.ticketBtn} bgPink textWhite`}
+                onClick={addToCartHandler}
+              >
+                <span className="inlBlk">加入</span>
+                <span className="inlBlk">推車</span>
               </div>
             </div>
           </div>

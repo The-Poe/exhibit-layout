@@ -1,4 +1,4 @@
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import classes from "./AuthForm.module.scss";
 import { useHistory } from "react-router-dom";
 import ShowModal from "components/features/showModal/ShowModal";
@@ -10,7 +10,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { AuthUserActions } from "store/AuthUserSlices";
+import { AuthUserActions } from "store/AuthUserSlice";
 import { useDispatch } from "react-redux";
 
 const AuthForm = (props) => {
@@ -28,9 +28,9 @@ const AuthForm = (props) => {
     setisLoginMode((prevState) => !prevState);
   };
 
-  const logInAuthUserHangdler = (user) => {
-    dispatch(AuthUserActions.logInAuthUser(user));
-  };
+  // const logInAuthUserHangdler = (user) => {
+  //   dispatch(AuthUserActions.logInAuthUser(user));
+  // };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -64,7 +64,7 @@ const AuthForm = (props) => {
         return;
       }
 
-      logInAuthUserHangdler(JSON.stringify(AuthUser));
+      // logInAuthUserHangdler(JSON.stringify(AuthUser));
       setIsLoading(false);
       passwordInputRef.current.value = "";
       props.onClose();
@@ -84,6 +84,7 @@ const AuthForm = (props) => {
     onAuthStateChanged(firebaseAuth, (firebaseUserState) => {
       dispatch(
         AuthUserActions.logInAuthUser(JSON.stringify(firebaseUserState))
+        //could be string "null", so use JSON.parse will turn out as value null.
       );
       console.log("onAuthStateChanged:", firebaseUserState);
     });
