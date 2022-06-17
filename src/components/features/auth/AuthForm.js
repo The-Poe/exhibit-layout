@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import classes from "./AuthForm.module.scss";
 import { useHistory } from "react-router-dom";
 import ShowModal from "components/features/showModal/ShowModal";
@@ -10,7 +10,7 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
-import { AuthUserActions } from "store/AuthUserSlice";
+import { authUserActions } from "store/authUserSlice";
 import { useDispatch } from "react-redux";
 
 const AuthForm = (props) => {
@@ -79,16 +79,13 @@ const AuthForm = (props) => {
     setError(null);
   };
 
-  /*Remain logged in after refreshin page by using firebase logged Auth state*/
-  useEffect(() => {
-    onAuthStateChanged(firebaseAuth, (firebaseUserState) => {
-      dispatch(
-        AuthUserActions.logInAuthUser(JSON.stringify(firebaseUserState))
-        //could be string "null", so use JSON.parse will turn out as value null.
-      );
-      console.log("onAuthStateChanged:", firebaseUserState);
-    });
-  }, [dispatch]);
+  /*subscribe to loggin status from firebase*/
+  onAuthStateChanged(firebaseAuth, (firebaseUserState) => {
+    dispatch(
+      authUserActions.logInAuthUser(JSON.stringify(firebaseUserState))
+      //could be string "null", so use JSON.parse will turn out as value null.
+    );
+  });
 
   return (
     <section className={`${classes.auth}  ${props.className}`}>

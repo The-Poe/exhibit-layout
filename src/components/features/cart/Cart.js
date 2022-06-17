@@ -1,15 +1,79 @@
 import styles from "./Cart.module.scss";
 import ticketIcon from "images/ticketIcon.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { UICartActions } from "store/UISlices";
+import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
+import { Link } from "react-router-dom";
+import { UICartActions } from "store/UISlices";
+import { cartActions } from "store/cartSlice";
+import { firestore } from "firebaseConfig";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import ShowModal from "../showModal/ShowModal";
+import NotificationOverlay from "../showModal/NotificationOverlay";
+
+let cartFetchedFromFirebase = false;
 
 const Cart = () => {
   const cartIsShow = useSelector((state) => state.UIcartReducer.cartIsShow);
-  const totalQuantity = useSelector((state) => state.cartReducer.totalQuantity);
-  const sumPrice = useSelector((state) => state.cartReducer.sumPrice);
-  const items = useSelector((state) => state.cartReducer.items);
+  const cart = useSelector((state) => state.cartReducer);
+  const authUser = useSelector((state) => state.authUserReducer.authUser);
+  const { items, sumPrice, totalQuantity } = cart;
   const dispatch = useDispatch();
+  const [isLoginNote, setIsloginNote] = useState(false);
+  let isCartEmpty = items.length === 0;
+
+  useEffect(() => {
+    const authUserJSON = JSON.parse(authUser);
+    let authUserEmail = "";
+    if (authUserJSON) {
+      if (authUser) {
+        authUserEmail = JSON.parse(authUser).email;
+      }
+    }
+    //Cart有變動就更新到Firestore
+    if (authUserEmail && cartFetchedFromFirebase) {
+      //指名到文件"集合(collection)/文件(doc)"(偶數配對)才可以使用Doc path
+      const firebaseAccessCurrentUserCart = doc(
+        firestore,
+        `carts/${authUserEmail}`
+      );
+      /**add/update data **/
+      const setDocToFirebase = async () => {
+        setDoc(firebaseAccessCurrentUserCart, cart) //覆蓋
+          .then(() => console.log("the setDoc() promise has fullfilled! ")) //won't be called when offline
+          .catch((err) => console.log("the setDoc() got error:", err));
+      };
+      setDocToFirebase();
+    }
+
+    //初次載入抓到登入狀態並同步會員手推車之後，手推車後續才會同步
+    if (authUserEmail && !cartFetchedFromFirebase) {
+      //指名到文件"集合(collection)/文件(doc)"(偶數配對)才可以使用Doc path
+      const firebaseAccessCurrentUserCart = doc(
+        firestore,
+        `carts/${authUserEmail}`
+      );
+      /*get Data with Email path to */
+      const getDocFromFirebase = async () => {
+        const currentUserSnapshot = await getDoc(firebaseAccessCurrentUserCart);
+        if (currentUserSnapshot.exists()) {
+          const docData = currentUserSnapshot.data();
+          console.log("getDoc() returns :", docData);
+          dispatch(cartActions.replaceCart(docData));
+          console.log("cart was replaced with:", docData);
+        } else {
+          console.log("currentUserSnapshot not exist");
+        }
+      };
+      getDocFromFirebase();
+      cartFetchedFromFirebase = true;
+    }
+  }, [authUser, cart, dispatch]);
+
+  const showLoginHangler = () => {
+    setIsloginNote((prevState) => !prevState);
+  };
+
   const toggleShowCartHangdler = () => {
     dispatch(UICartActions.toggleShowCart());
   };
@@ -47,7 +111,7 @@ const Cart = () => {
               />
             ))}
         </div>
-        {items.length === 0 && (
+        {isCartEmpty && (
           <div className={`${styles.noItems}`}>
             {" "}
             No item yet &nbsp;&nbsp;; &#41;{" "}
@@ -59,9 +123,36 @@ const Cart = () => {
             <span className={`${styles.cartSpan}`}>NT$</span>
             <span className={`${styles.cartSpan}`}>{sumPrice}</span>
           </div>
-          <div className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}>
-            <a href="/checkout">前往結帳</a>
-          </div>
+          {!isCartEmpty && (
+            <div
+              className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}
+              onClick={toggleShowCartHangdler}
+            >
+              {authUser && <Link to="/checkout">前往結帳</Link>}
+              {!authUser && <div onClick={showLoginHangler}>前往結帳</div>}
+              {isLoginNote && (
+                <ShowModal
+                  modalLayer="top"
+                  onClose={showLoginHangler}
+                  ModalContent={
+                    <NotificationOverlay
+                      title="Please" //{error.title}
+                      message="Please login first!"
+                      onConfirm={showLoginHangler}
+                    />
+                  }
+                />
+              )}
+            </div>
+          )}
+          {isCartEmpty && (
+            <div
+              className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}
+              onClick={toggleShowCartHangdler}
+            >
+              繼續瀏覽
+            </div>
+          )}
         </div>
       </div>
     </div>

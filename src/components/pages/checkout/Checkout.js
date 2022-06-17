@@ -1,8 +1,108 @@
-import { useState } from "react";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  limit,
+  query,
+  where,
+} from "firebase/firestore";
+import { firestore } from "firebaseConfig";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { cartActions } from "store/cartSlice";
+import { orderInfoActions } from "store/orderInfoSlice";
 import styles from "./Checkout.module.scss";
+import CheckoutItem from "./CheckoutItem";
 
 const Checkout = () => {
   const [checkoutStatus, setCheckoutStatus] = useState(1);
+  const authUser = useSelector((state) => state.authUserReducer.authUser);
+
+  const cart = useSelector((state) => state.cartReducer);
+  const { items, sumPrice } = cart;
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("");
+  const [cusomerName, setCusomerName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+  const [isCouponEffect, setIsCouponEffect] = useState(false);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+  const [creditCard, setCreditCard] = useState("");
+  const [creditCardDate, setCreditCardDate] = useState(null);
+  const [secureCode, setSecureCode] = useState("");
+  const [finalPrice, setfinalPrice] = useState(0);
+  //TODO: validation
+
+  const emailInputRef = useRef();
+  const customerNameInputRef = useRef();
+  const phoneInputRef = useRef();
+  const couponCodeInputRef = useRef();
+  const creditCardInputRef = useRef();
+  const creditCardDateInputRef = useRef();
+  const secureCodeInputRef = useRef();
+
+  const emailOnChange = (e) => {
+    setEmail(emailInputRef.current.value);
+    console.log(email);
+  };
+  const customerNameOnChange = () => {
+    setCusomerName(customerNameInputRef.current.value);
+  };
+  const phoneOnChange = () => {
+    setPhone(phoneInputRef.current.value);
+  };
+  const couponCodeOnChange = () => {
+    setCouponCode(couponCodeInputRef.current.value);
+    console.log("couponCodeOnChange called");
+  };
+
+  useEffect(() => {
+    /*To look up Coupon discount*/
+    /****************************/
+    /**Query with multiple docs**/
+    /****************************/
+    async function queryForDocs() {
+      console.log("queryForDocs() called");
+      const customerOrderQuery = query(
+        collection(firestore, "campaigns"),
+        where("couponCode", "==", couponCode),
+        limit(1)
+      );
+      const querySnapshot = await getDocs(customerOrderQuery);
+      console.log("couponCode:", couponCode);
+      console.log("querySnapshot.docs:", querySnapshot.docs);
+      if (querySnapshot.docs.length === 0) {
+        setCouponDiscount(0);
+        setIsCouponEffect(false);
+        setfinalPrice(sumPrice);
+      } else if (querySnapshot.docs.length > 0) {
+        querySnapshot.forEach((snap) => {
+          console.log(
+            `Query Doc ${snap.id} contains ${JSON.stringify(snap.data())}`
+          );
+          setCouponDiscount(snap.data().couponDiscount);
+          if (snap.data().couponType.toLowerCase() === "minus") {
+            setfinalPrice(sumPrice - couponDiscount);
+          }
+          setIsCouponEffect(true);
+        });
+      }
+    }
+    queryForDocs();
+  }, [couponCode, couponDiscount, sumPrice]);
+
+  const creditCardOnChange = () => {
+    setCreditCard(creditCardInputRef.current.value);
+  };
+  const creditCardDateOnChange = () => {
+    setCreditCardDate(creditCardDateInputRef.current.value);
+  };
+  const secureCodeOnChange = () => {
+    setSecureCode(secureCodeInputRef.current.value);
+  };
 
   const nextStepHandler = () => {
     if (checkoutStatus < 3) setCheckoutStatus(checkoutStatus + 1);
@@ -12,6 +112,60 @@ const Checkout = () => {
   const lastStepHandler = () => {
     if (checkoutStatus > 1) setCheckoutStatus(checkoutStatus - 1);
     console.log("checkoutStatus:", checkoutStatus);
+  };
+
+  const onConfirmOrder = () => {
+    const orderDetail = {
+      email,
+      cusomerName,
+      phone,
+      couponCode,
+      couponDiscount,
+      creditCard,
+      creditCardDate,
+      secureCode,
+      finalPrice,
+      items,
+    };
+
+    /*send to Firestore*/
+    const authUserJSON = JSON.parse(authUser);
+    let authUserEmail = "";
+    if (authUserJSON) {
+      if (authUser) {
+        authUserEmail = JSON.parse(authUser).email;
+      }
+    }
+    //collection(自動配給子集合使用,ID可以用addDoc回傳的id)
+    const usersCollection = collection(
+      firestore,
+      `orders/${authUserEmail}/orderDetails`
+    );
+    const addDocToFirebase = async () => {
+      addDoc(usersCollection, orderDetail) //用隨機ID新增
+        .then((response) => {
+          console.log("the addDoc() promise has fullfilled! ");
+          console.log("the response is:", response);
+          console.log("the response.id is:", response.id);
+          dispatch(
+            orderInfoActions.replaceOrderId({
+              orderId: response.id,
+            })
+          );
+        }) //won't run when offline
+        .catch((err) => console.log("the addDoc() got error:", err));
+    };
+    addDocToFirebase();
+
+    dispatch(orderInfoActions.replaceOrderItems({ items }));
+
+    dispatch(
+      cartActions.replaceCart({
+        items: [],
+        totalQuantity: 0,
+        sumPrice: 0,
+      })
+    );
   };
 
   return (
@@ -52,125 +206,22 @@ const Checkout = () => {
         </div>
         <div className={`${styles.chkoutContent}`}>
           <div className={`${styles.chkoutItems}`}>
-            <div className={`${styles.chkoutItem}`}>
-              <div className={`${styles.deleteItemWrapper}`}>
-                <div className={`${styles.deleteItem}`}>✖</div>
-              </div>
-              <div
-                className={`${styles.itemPic}`}
-                style={{
-                  width: "12vmax",
-                  height: "auto",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundImage:
-                    "url(https://images.unsplash.com/photo-1545178803-4056771d60a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
-                }}
-              ></div>
-              <div className={`${styles.itemInfo}`}>
-                <div className={`${styles.itemInfoTitle}`}>2020台味設計展</div>
-                <div className={`${styles.itemInfoDate}`}>
-                  <span className={`${styles.startDay}`}>01</span>
-                  <span className={`${styles.startMon}`}>JUN</span>
-                  <div className={`${styles.inlineBar}`}></div>
-                  <span className={`${styles.endDay}`}>31</span>
-                  <span className={`${styles.endMon}`}>OCT</span>
-                </div>
-                <div className={`${styles.itemInfoType}`}>全票</div>
-              </div>
-              <div className={`${styles.itemInfoPrice}`}>
-                <span className={`${styles.infoCurrency}`}>NT$</span>
-                <span className={`${styles.infoTotal}`}>350</span>
-              </div>
-              <div className={`${styles.itemAdjust}`}>
-                <div className={`${styles.minusWrapper} mh`}>
-                  <div className={`${styles.minus}`}></div>
-                </div>
-                <div className={`${styles.itemQty} mh`}>01</div>
-                <div className={`${styles.plus} mh`}>+</div>
-              </div>
-            </div>
-            {/* repeate vvv */}
-            <div className={`${styles.chkoutItem}`}>
-              <div className={`${styles.deleteItemWrapper}`}>
-                <div className={`${styles.deleteItem}`}>✖</div>
-              </div>
-              <div
-                className={`${styles.itemPic}`}
-                style={{
-                  width: "12vmax",
-                  height: "auto",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundImage:
-                    "url(https://images.unsplash.com/photo-1545987796-b199d6abb1b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
-                }}
-              ></div>
-              <div className={`${styles.itemInfo}`}>
-                <div className={`${styles.itemInfoTitle}`}>No.22線上設計展</div>
-                <div className={`${styles.itemInfoDate}`}>
-                  <span className={`${styles.startDay}`}>01</span>
-                  <span className={`${styles.startMon}`}>JUN</span>
-                  <div className={`${styles.inlineBar}`}></div>
-                  <span className={`${styles.endDay}`}>31</span>
-                  <span className={`${styles.endMon}`}>OCT</span>
-                </div>
-                <div className={`${styles.itemInfoType}`}>全票</div>
-              </div>
-              <div className={`${styles.itemInfoPrice}`}>
-                <span className={`${styles.infoCurrency}`}>NT$</span>
-                <span className={`${styles.infoTotal}`}>350</span>
-              </div>
-              <div className={`${styles.itemAdjust}`}>
-                <div className={`${styles.minusWrapper} mh`}>
-                  <div className={`${styles.minus}`}></div>
-                </div>
-                <div className={`${styles.itemQty} mh`}>01</div>
-                <div className={`${styles.plus} mh`}>+</div>
-              </div>
-            </div>
-            <div className={`${styles.chkoutItem}`}>
-              <div className={`${styles.deleteItemWrapper}`}>
-                <div className={`${styles.deleteItem}`}>✖</div>
-              </div>
-              <div
-                className={`${styles.itemPic}`}
-                style={{
-                  width: "12vmax",
-                  height: "auto",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "center",
-                  backgroundSize: "cover",
-                  backgroundImage:
-                    "url(https://images.unsplash.com/photo-1596649300028-340ad0ec6146?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)",
-                }}
-              ></div>
-              <div className={`${styles.itemInfo}`}>
-                <div className={`${styles.itemInfoTitle}`}>高雄設計展</div>
-                <div className={`${styles.itemInfoDate}`}>
-                  <span className={`${styles.startDay}`}>01</span>
-                  <span className={`${styles.startMon}`}>JUN</span>
-                  <div className={`${styles.inlineBar}`}></div>
-                  <span className={`${styles.endDay}`}>31</span>
-                  <span className={`${styles.endMon}`}>OCT</span>
-                </div>
-                <div className={`${styles.itemInfoType}`}>全票</div>
-              </div>
-              <div className={`${styles.itemInfoPrice}`}>
-                <span className={`${styles.infoCurrency}`}>NT$</span>
-                <span className={`${styles.infoTotal}`}>350</span>
-              </div>
-              <div className={`${styles.itemAdjust}`}>
-                <div className={`${styles.minusWrapper} mh`}>
-                  <div className={`${styles.minus}`}></div>
-                </div>
-                <div className={`${styles.itemQty} mh`}>01</div>
-                <div className={`${styles.plus} mh`}>+</div>
-              </div>
-            </div>
-            {/* repeate ^^^ */}
+            {items &&
+              items.map((item) => (
+                <CheckoutItem
+                  key={item.id}
+                  id={item.id}
+                  picUrl={item.picUrl}
+                  title={item.title}
+                  startDate={item.startDate}
+                  startMon={item.startMonth}
+                  endDate={item.endDate}
+                  endMonth={item.endMonth}
+                  price={item.price}
+                  quantity={item.quantity}
+                  totalPrice={item.totalPrice}
+                />
+              ))}
           </div>
         </div>
         <div className={`${styles.chkoutCustomInfo}`}>
@@ -186,6 +237,8 @@ const Checkout = () => {
                       type="email"
                       name="email"
                       placeholder="example@gmail.com"
+                      ref={emailInputRef}
+                      onChange={emailOnChange}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -195,6 +248,8 @@ const Checkout = () => {
                       type="text"
                       name="name"
                       placeholder="請輸入姓名"
+                      ref={customerNameInputRef}
+                      onChange={customerNameOnChange}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -204,6 +259,8 @@ const Checkout = () => {
                       type="tel"
                       name="contact"
                       placeholder="請輸入電話"
+                      ref={phoneInputRef}
+                      onChange={phoneOnChange}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -213,9 +270,12 @@ const Checkout = () => {
                       type="text"
                       name="coupon"
                       placeholder="TG87526"
+                      ref={couponCodeInputRef}
+                      onChange={couponCodeOnChange}
                     ></input>
-                    <div className={`${styles.isCoupleEffect}`}>
-                      優惠碼已生效
+                    <div className={`${styles.coupleEffect}`}>
+                      {isCouponEffect && "優惠碼已生效"}
+                      {!isCouponEffect && "無效優惠碼"}
                     </div>
                   </div>
                 </form>
@@ -232,15 +292,19 @@ const Checkout = () => {
                       type="text"
                       name="credit"
                       placeholder="xxxx-xxxx-xxxx-xxxx"
+                      ref={creditCardInputRef}
+                      onChange={creditCardOnChange}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
                     <label htmlFor="validDate">有效日期</label>
                     <br />
                     <input
-                      type="date"
+                      type="month"
                       name="validDate"
                       placeholder="(MM/YY)"
+                      ref={creditCardDateInputRef}
+                      onChange={creditCardDateOnChange}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -251,6 +315,8 @@ const Checkout = () => {
                       name="security"
                       max="3"
                       placeholder="請輸入安全碼"
+                      ref={secureCodeInputRef}
+                      onChange={secureCodeOnChange}
                     ></input>
                   </div>
                 </form>
@@ -262,7 +328,7 @@ const Checkout = () => {
               <span className={`${styles.subtotalText} mh`}>小計</span>
               <span className={`${styles.subtotalInfo} mh`}>
                 <span className={`${styles.infoCurrency}`}>NT$</span>
-                <span className={`${styles.infoTotal}`}>1050</span>
+                <span className={`${styles.infoTotal}`}>{sumPrice}</span>
               </span>
             </div>
             {checkoutStatus !== 1 && (
@@ -271,14 +337,16 @@ const Checkout = () => {
                   <span className={`${styles.subtotalText} mh`}>折扣</span>
                   <span className={`${styles.subtotalInfo} mh`}>
                     <span className={`${styles.infoCurrency}`}>-NT$</span>
-                    <span className={`${styles.infoCurrency}`}>50</span>
+                    <span className={`${styles.infoCurrency}`}>
+                      {couponDiscount}
+                    </span>
                   </span>
                 </div>
                 <div className={`${styles.summing} total`}>
                   <span className={`${styles.subtotalText} mh`}>總金額</span>
                   <span className={`${styles.subtotalInfo} mh`}>
                     <span className={`${styles.infoCurrency}`}>NT$</span>
-                    <span className={`${styles.infoTotal}`}>1000</span>
+                    <span className={`${styles.infoTotal}`}>{finalPrice}</span>
                   </span>
                 </div>
               </>
@@ -304,12 +372,14 @@ const Checkout = () => {
           </div>
         )}
         {checkoutStatus === 3 && (
-          <a
-            href="/checkoutDone"
-            className={`${styles.btnNext} textWhite bgPurple`}
-          >
-            下一步
-          </a>
+          <Link to="/checkoutDone">
+            <div
+              onClick={onConfirmOrder}
+              className={`${styles.btnConfirm} textWhite bgPurple`}
+            >
+              確認結帳
+            </div>
+          </Link>
         )}
       </div>
     </>

@@ -1,8 +1,8 @@
-import styles from "./CartItem.module.scss";
+import styles from "./CheckoutItem.module.scss";
 import { useDispatch } from "react-redux";
 import { cartActions } from "store/cartSlice";
 
-const CartItem = (props) => {
+const CheckoutItem = (props) => {
   const {
     id,
     picUrl,
@@ -44,7 +44,7 @@ const CartItem = (props) => {
   };
 
   return (
-    <div className={`${styles.cartItem}`} key={props.id}>
+    <div className={`${styles.chkoutItem}`}>
       <div className={`${styles.deleteItemWrapper}`}>
         <div className={`${styles.deleteItem}`} onClick={deleteItemHandler}>
           ✖
@@ -53,51 +53,42 @@ const CartItem = (props) => {
       <div
         className={`${styles.itemPic}`}
         style={{
+          width: "12vmax",
+          height: "auto",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          backgroundImage: `url(${props.picUrl})`,
+          backgroundImage: `url(${props.picUrl}`,
         }}
       ></div>
       <div className={`${styles.itemInfo}`}>
         <div className={`${styles.itemInfoTitle}`}>{props.title}</div>
         <div className={`${styles.itemInfoDate}`}>
-          <span className={`${styles.startDay} ${styles.mh}`}>
-            {props.startDate}
-          </span>
-          <span className={`${styles.startMon} ${styles.mh}`}>
-            {props.startMonth}
-          </span>
+          <span className={`${styles.startDay}`}>{props.startDate}</span>
+          <span className={`${styles.startMon}`}> {props.startMonth}</span>
           <div className={`${styles.inlineBar}`}></div>
-          <span className={`${styles.endDay} ${styles.mh}`}>
-            {props.endDate}
-          </span>
-          <span className={`${styles.endMon} ${styles.mh}`}>
-            {props.endMonth}
-          </span>
+          <span className={`${styles.endDay}`}>{props.endDate}</span>
+          <span className={`${styles.endMon}`}> {props.endMonth}</span>
         </div>
         <div className={`${styles.itemInfoType}`}>全票</div>
-        <div className={`${styles.itemInfoPrice}`}>
-          <span className={`${styles.infoCurrency}`}>NT$</span>
-          <span className={`${styles.infoTotal}`}>{props.totalPrice}</span>
-        </div>
+      </div>
+      <div className={`${styles.itemInfoPrice}`}>
+        <span className={`${styles.infoCurrency}`}>NT$</span>
+        <span className={`${styles.infoTotal}`}>{props.totalPrice}</span>
       </div>
       <div className={`${styles.itemAdjust}`}>
         <div
           className={`${styles.minusWrapper} mh`}
           onClick={minusOneItemHandler}
         >
-          <div className={`${styles.minus} ${styles.mh}`}></div>
+          <div className={`${styles.minus}`}></div>
         </div>
-        <div className={`${styles.itemQty} ${styles.mh}`}>{props.quantity}</div>
-        <div
-          className={`${styles.plus} ${styles.mh}`}
-          onClick={plusOneItemHandler}
-        >
+        <div className={`${styles.itemQty} mh`}>{props.quantity}</div>
+        <div className={`${styles.plus} mh`} onClick={plusOneItemHandler}>
           +
         </div>
       </div>
     </div>
   );
 };
-export default CartItem;
+export default CheckoutItem;

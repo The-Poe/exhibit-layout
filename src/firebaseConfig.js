@@ -1,6 +1,7 @@
 /* fire base V9*/
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAQpYqHJn58wqNA2nxjB4Vj1qqBpy6ZNsg",
@@ -17,3 +18,6 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 
 export const firebaseAuth = getAuth(firebaseApp); //for first parameter in other firebase methods
+
+// Initialize Cloud Firestore and get a reference to the service
+export const firestore = getFirestore(firebaseApp);

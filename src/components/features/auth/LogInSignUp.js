@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { firebaseAuth } from "firebaseConfig";
 import { signOut } from "firebase/auth";
-import { AuthUserActions } from "store/AuthUserSlice";
+import { authUserActions } from "store/authUserSlice";
 import { useSelector } from "react-redux";
 
 /*To control showing the Auth Form in app.js*/
@@ -19,7 +19,7 @@ const LogInSignUp = () => {
   };
   const logOutAuthUserHangdler = async () => {
     await signOut(firebaseAuth);
-    dispatch(AuthUserActions.logOutAuthUser());
+    dispatch(authUserActions.logOutAuthUser());
   };
 
   return (

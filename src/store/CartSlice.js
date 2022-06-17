@@ -5,6 +5,11 @@ const cartSlice = createSlice({
   name: "AuthUserSlices(NameforBrowserInspect)",
   initialState: initialCartState,
   reducers: {
+    replaceCart(state, action) {
+      state.items = action.payload.items;
+      state.totalQuantity = action.payload.totalQuantity;
+      state.sumPrice = action.payload.sumPrice;
+    },
     addItemToCart(state, action) {
       const newItem = action.payload.product;
       const newItemQuantity = action.payload.quantity;

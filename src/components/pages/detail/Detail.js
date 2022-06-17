@@ -5,7 +5,7 @@ import Guess from "../../layout/guess/Guess";
 import Footer from "../../layout/footer/Footer";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { cartActions } from "store/CartSlice";
+import { cartActions } from "store/cartSlice";
 import { useState } from "react";
 
 const Detail = () => {

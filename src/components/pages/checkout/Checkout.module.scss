@@ -93,149 +93,6 @@
                 padding: 3vh 0;
             }
 
-            .chkoutItem {
-                padding: 2vmin 2vmin;
-                margin: 0.5vmin 0;
-                display: flex;
-                background-color: white;
-                border-radius: 5px;
-
-                @include pad {
-                    width: 100%;
-                }
-
-                .deleteItemWrapper {
-                    flex-basis: 10%;
-                    order: 5;
-                    display: inline-block;
-                    width: 4vmin;
-                    margin: 0 1vw;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-
-                    .deleteItem {
-                        top: 39.5%;
-                        cursor: pointer;
-                        font-size: 1.5em;
-                    }
-                }
-
-                .itemPic {
-                    flex-basis: 30%;
-                }
-
-                .itemInfo {
-                    flex-basis: 30%;
-                    color: black;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: spaceb-evenly;
-                    margin: 0 1vw;
-
-                    .itemInfoTitle {
-                        font-size: calc(3px + 1.5vmax);
-                        font-weight: 700;
-                        margin-bottom: 1vmin;
-
-                        @include pad {
-                            font-size: calc(8px + 2vmin);
-                        }
-                    }
-
-                    .itemInfoDate {
-                        font-size: calc(4px + 1.3vmax);
-                        margin-bottom: 1vmin;
-
-                        .mh {
-                            margin: 0 0.2vw;
-                        }
-
-                        .inlineBar {
-                            @include inlineBar(black, 1em, 1px, 0, -0.25em, 0, 0.2vw);
-                        }
-
-                        @include pad {
-                            font-size: calc(8px + 2vmin);
-                        }
-
-                    }
-
-                    .itemInfoType {
-                        font-size: calc(3px + 1vmax);
-                        color: $cGray;
-                        margin-bottom: 1vmin;
-
-                        @include pad {
-                            font-size: calc(5px + 2vmin);
-                        }
-                    }
-
-                    @include pad {
-                        padding-left: 3vw;
-
-                        .mh {
-                            margin: 0 1.5vw;
-                        }
-                    }
-                }
-
-                .itemInfoPrice {
-                    flex-basis: 20%;
-                    display: flex;
-                    justify-content: flex-start;
-                    align-items: center;
-                    font-size: calc(3px + 1.8vmax);
-                    font-weight: 800;
-                    margin: 0 1vw;
-
-                    @include pad {
-                        font-size: calc(8px + 2vmin);
-                    }
-                }
-
-                .itemAdjust {
-                    flex-basis: 20%;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: calc(7px + 1.5vmin);
-                    margin: 0 1vw;
-
-                    .mh {
-                        margin: 0 0.5vw;
-                    }
-
-                    .minusWrapper {
-                        height: 30px;
-                        cursor: pointer;
-                        display: flex;
-                        align-items: center;
-                        padding-top: 0.2rem;
-
-                        .minus {
-                            @include inlineBar(black, 0.8em, 0, 0, 0, 0, 0.2vw);
-                            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
-
-                        }
-                    }
-
-
-                    .plus {
-                        font-size: calc(20px + 1.5vmin);
-                        cursor: pointer;
-                        padding-bottom: 0.3rem;
-                    }
-
-                    @include pad {
-                        margin-right: 3vw;
-
-                        .mh {
-                            margin: 0 1.5vw;
-                        }
-                    }
-                }
-            }
         }
 
     }
@@ -246,7 +103,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 12vh 5vw 0 0;
+        padding: 10vh 5vw 0 0;
 
         @include pad {
             order: 2;
@@ -263,7 +120,7 @@
             }
 
             .formTitle {
-                font-size: calc(10px + 1vmax);
+                font-size: calc(8px + 1vmax);
                 font-weight: 700;
                 margin: 2vh 0;
             }
@@ -297,7 +154,8 @@
                         rgba(0, 0, 0, 0) 0px 0px 0px 0px;
                 }
 
-                .isCoupleEffect {
+                .coupleEffect {
+                    font-size: calc(5px + 1vmax);
                     padding: 1vmax 0;
                     float: right;
                     color: $cPurple;
@@ -406,11 +264,11 @@
 
     .btnRewind {
         @include rectBtn(6vw, 0, 0.8em, 0, 3px);
-        width: 25%;
+        width: 25vw;
         max-width: 100px;
 
         @include pad {
-            width: 50%;
+            width: 50vw;
             margin-left: 1vw;
             max-width: none;
         }
@@ -419,11 +277,23 @@
     .btnNext {
         @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
         //@include rectBtn($ml, $mr, $pv, $ph, $br);
-        width: 35%;
+        width: 35vw;
         background-color: $cPink;
 
         @include pad {
-            width: 50%;
+            width: 50vw;
+            margin-right: 1vw;
+        }
+    }
+
+    .btnConfirm {
+        @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+        //@include rectBtn($ml, $mr, $pv, $ph, $br);
+        width: 35vw;
+        background-color: $cPink;
+
+        @include pad {
+            width: 47vw;
             margin-right: 1vw;
         }
     }

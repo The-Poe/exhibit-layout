@@ -46,6 +46,16 @@
 
     }
 
+    .checkOutItems {
+        text-align: center;
+        margin: 1.5rem 0;
+    }
+
+    .checkOutItem {
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
     .confirmText2 {
         align-self: flex-start;
         font-size: calc(8px + 1vmax);
@@ -64,14 +74,9 @@
         justify-content: space-between;
 
         .btn {
-            @include rectBtn(0, 0, 0.5em, 13vw, 3px);
-            width: inherit;
-            margin: 0 1vw;
-            padding: 0.5em 0;
-
-            @include pad {
-                padding: 0.8em 0;
-            }
+            @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+            //@include rectBtn($ml, $mr, $pv, $ph, $br);
+            width: 26vw;
         }
     }
 
