@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -10,7 +10,6 @@ export default function Countdowntimer(props) {
   // with JS setInterval to keep track of it and
   // stop it when needed
   const Ref = useRef(null);
-  // The state for our timer
   const [timer, setTimer] = useState(secs);
 
   const getTimeRemaining = (e) => {
@@ -22,48 +21,50 @@ export default function Countdowntimer(props) {
     };
   };
 
-  const startTimer = (e) => {
-    let { total, seconds } = getTimeRemaining(e);
-    console.log("startTimer total:", total);
-    if (total > 0) {
-      // update the timer
-      // check if less than 10 then we need to
-      // add '0' at the begining of the variable
-      setTimer(seconds);
-    } else if (total <= 0) {
-      /*redirect*/
-      history.push("/");
-      clearTimer();
-    }
-  };
-
-  const clearTimer = (e) => {
-    // If you adjust it you should also need to
-    // adjust the Endtime formula we are about
-    // to code next
-    setTimer(secs);
-
-    // If you try to remove this line the
-    // updating of timer Variable will be
-    // after 1000ms or 1sec
+  const shutDownTimer = useCallback(() => {
     if (Ref.current) clearInterval(Ref.current);
+  }, []);
 
-    if (!!e) {
-      const id = setInterval(() => {
-        startTimer(e);
-      }, 250);
-      Ref.current = id;
-    }
-  };
+  const startTimer = useCallback(
+    (e) => {
+      let { total, seconds } = getTimeRemaining(e);
+      console.log("startTimer total:", total);
+      if (total > 0) {
+        // update the timer
+        // check if less than 10 then we need to
+        // add '0' at the begining of the variable
+        setTimer(seconds);
+      } else if (total <= 0) {
+        /*redirect*/
+        history.push("/");
+        shutDownTimer();
+      }
+    },
+    [shutDownTimer, history]
+  );
 
-  const getDeadTime = () => {
+  const clearTimer = useCallback(
+    (e) => {
+      setTimer(secs);
+
+      if (!!e) {
+        const id = setInterval(() => {
+          startTimer(e);
+        }, 250);
+        Ref.current = id;
+      }
+    },
+    [secs, startTimer]
+  );
+
+  const getDeadTime = useCallback(() => {
     let deadline = new Date();
 
     // This is where you need to adjust if
     // you entend to add more time
     deadline.setSeconds(deadline.getSeconds() + secs);
     return deadline;
-  };
+  }, [secs]);
 
   // We can use useEffect so that when the component
   // mount the timer will start as soon as possible
@@ -79,7 +80,7 @@ export default function Countdowntimer(props) {
     return () => {
       isTimerZero = true;
     };
-  }, []);
+  }, [clearTimer, getDeadTime]);
 
   return <span>{timer}</span>;
 }

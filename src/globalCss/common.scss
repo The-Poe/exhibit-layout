@@ -16,6 +16,10 @@
 }
 
 /*text*/
+.textCenter {
+    text-align: center;
+}
+
 .textWhite {
     color: white;
 }
@@ -35,6 +39,10 @@
 /*padding*/
 .pr2em {
     padding-right: 2em;
+}
+
+.pt2em {
+    padding-top: 2em;
 }
 
 /*border*/
@@ -59,6 +67,13 @@
 .jcfe {
     justify-content: flex-end;
 }
+
+.jccc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /*display*/
 .inlBlk {

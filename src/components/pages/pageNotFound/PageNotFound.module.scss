@@ -1,0 +1,25 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+.pageNotFound {
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: calc(18px + 1.5vmax);
+        margin: 2rem;
+    }
+
+    p {
+        font-size: calc(12px + 1vmax);
+        margin: 1.5rem;
+    }
+
+    button {
+        font-size: calc(12px + 1vmax);
+        margin: 1.5rem;
+    }
+}

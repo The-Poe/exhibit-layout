@@ -23,6 +23,7 @@ const Cart = () => {
   let isCartEmpty = items.length === 0;
 
   useEffect(() => {
+    /*authUser 有變動時要跑此副作用 */
     const authUserJSON = JSON.parse(authUser);
     let authUserEmail = "";
     if (authUserJSON) {
@@ -67,6 +68,7 @@ const Cart = () => {
       };
       getDocFromFirebase();
       cartFetchedFromFirebase = true;
+      console.log("synchronized local cart with Firestore cart data");
     }
   }, [authUser, cart, dispatch]);
 

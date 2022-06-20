@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialCartState = { items: [], totalQuantity: 0, sumPrice: 0 };
 
 const cartSlice = createSlice({
-  name: "AuthUserSlices(NameforBrowserInspect)",
+  name: "cartSlices(NameforBrowserInspect)",
   initialState: initialCartState,
   reducers: {
     replaceCart(state, action) {
