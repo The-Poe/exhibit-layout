@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 /*Toggle show Auth UI*/
-const initialAuthUserState = { authUser: null };
+const initialAuthUserState = { authUser: "null" };
 const authUserSlice = createSlice({
   name: "authUserSlices(NameforBrowserInspect)",
   initialState: initialAuthUserState,
@@ -10,7 +10,7 @@ const authUserSlice = createSlice({
       state.authUser = action.payload;
     },
     logOutAuthUser(state, action) {
-      state.authUser = null;
+      state.authUser = "null";
     },
   },
 });

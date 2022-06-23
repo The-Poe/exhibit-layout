@@ -3,18 +3,17 @@ import ticketIcon from "images/ticketIcon.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import CartItem from "./CartItem";
+import ShowModal from "../showModal/ShowModal";
+import NotificationOverlay from "../showModal/NotificationOverlay";
 import { Link } from "react-router-dom";
-import { UICartActions } from "store/UISlices";
 import { cartActions } from "store/cartSlice";
 import { firestore } from "firebaseConfig";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import ShowModal from "../showModal/ShowModal";
-import NotificationOverlay from "../showModal/NotificationOverlay";
 
 let cartFetchedFromFirebase = false;
 
 const Cart = () => {
-  const cartIsShow = useSelector((state) => state.UIcartReducer.cartIsShow);
+  const [cartIsShow, setCartIsShow] = useState(false);
   const cart = useSelector((state) => state.cartReducer);
   const authUser = useSelector((state) => state.authUserReducer.authUser);
   const { items, sumPrice, totalQuantity } = cart;
@@ -24,12 +23,9 @@ const Cart = () => {
 
   useEffect(() => {
     /*authUser 有變動時要跑此副作用 */
-    const authUserJSON = JSON.parse(authUser);
     let authUserEmail = "";
-    if (authUserJSON) {
-      if (authUser) {
-        authUserEmail = JSON.parse(authUser).email;
-      }
+    if (authUser !== "null") {
+      authUserEmail = JSON.parse(authUser).email;
     }
     //Cart有變動就更新到Firestore
     if (authUserEmail && cartFetchedFromFirebase) {
@@ -77,7 +73,7 @@ const Cart = () => {
   };
 
   const toggleShowCartHangdler = () => {
-    dispatch(UICartActions.toggleShowCart());
+    setCartIsShow((prevState) => !prevState);
   };
 
   const cartClasses = [
@@ -126,12 +122,29 @@ const Cart = () => {
             <span className={`${styles.cartSpan}`}>{sumPrice}</span>
           </div>
           {!isCartEmpty && (
-            <div
-              className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}
-              onClick={toggleShowCartHangdler}
-            >
-              {authUser && <Link to="/checkout">前往結帳</Link>}
-              {!authUser && <div onClick={showLoginHangler}>前往結帳</div>}
+            <>
+              {authUser !== "null" && (
+                <Link to="/checkout">
+                  <div
+                    className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}
+                    onClick={toggleShowCartHangdler}
+                  >
+                    前往結帳
+                  </div>
+                </Link>
+              )}
+
+              {authUser === "null" && (
+                <div onClick={showLoginHangler}>
+                  <div
+                    className={`${styles.checkoutBtn} bgWhite borPurple textPurple`}
+                    onClick={toggleShowCartHangdler}
+                  >
+                    前往結帳
+                  </div>
+                </div>
+              )}
+
               {isLoginNote && (
                 <ShowModal
                   modalLayer="top"
@@ -145,7 +158,7 @@ const Cart = () => {
                   }
                 />
               )}
-            </div>
+            </>
           )}
           {isCartEmpty && (
             <div

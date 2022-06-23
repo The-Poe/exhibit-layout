@@ -12,17 +12,3 @@ export const UIAuthSlice = createSlice({
   },
 });
 export const UIAuthActions = UIAuthSlice.actions;
-
-/*Toggle show cart UI*/
-const initialUICartState = { cartIsShow: false };
-export const UICartSlice = createSlice({
-  name: "cartSlice(NameforBrowserInspect)",
-  initialState: initialUICartState,
-  reducers: {
-    toggleShowCart(state) {
-      state.cartIsShow = !state.cartIsShow;
-    },
-  },
-});
-
-export const UICartActions = UICartSlice.actions;

@@ -8,6 +8,7 @@
     @include pad {
         flex-direction: column;
     }
+
 }
 
 .guessItem {
@@ -18,6 +19,12 @@
         width: 80vw;
         margin: 10px 0;
     }
+
+    a {
+        color: default;
+        text-decoration: none;
+    }
+
 }
 
 .guessTitle {

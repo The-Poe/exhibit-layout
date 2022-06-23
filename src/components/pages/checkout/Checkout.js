@@ -129,12 +129,9 @@ const Checkout = () => {
     };
 
     /*send to Firestore*/
-    const authUserJSON = JSON.parse(authUser);
     let authUserEmail = "";
-    if (authUserJSON) {
-      if (authUser) {
-        authUserEmail = JSON.parse(authUser).email;
-      }
+    if (authUser !== "null") {
+      authUserEmail = JSON.parse(authUser).email;
     }
     //collection(自動配給子集合使用,ID可以用addDoc回傳的id)
     const usersCollection = collection(
@@ -239,6 +236,7 @@ const Checkout = () => {
                       placeholder="example@gmail.com"
                       ref={emailInputRef}
                       onChange={emailOnChange}
+                      value={email}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -250,6 +248,7 @@ const Checkout = () => {
                       placeholder="請輸入姓名"
                       ref={customerNameInputRef}
                       onChange={customerNameOnChange}
+                      value={cusomerName}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -261,6 +260,7 @@ const Checkout = () => {
                       placeholder="請輸入電話"
                       ref={phoneInputRef}
                       onChange={phoneOnChange}
+                      value={phone}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -272,6 +272,7 @@ const Checkout = () => {
                       placeholder="TG87526"
                       ref={couponCodeInputRef}
                       onChange={couponCodeOnChange}
+                      value={couponCode}
                     ></input>
                     <div className={`${styles.coupleEffect}`}>
                       {isCouponEffect && "優惠碼已生效"}
@@ -294,6 +295,7 @@ const Checkout = () => {
                       placeholder="xxxx-xxxx-xxxx-xxxx"
                       ref={creditCardInputRef}
                       onChange={creditCardOnChange}
+                      value={creditCard}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -305,6 +307,7 @@ const Checkout = () => {
                       placeholder="(MM/YY)"
                       ref={creditCardDateInputRef}
                       onChange={creditCardDateOnChange}
+                      value={creditCardDate}
                     ></input>
                   </div>
                   <div className={`${styles.formField}`}>
@@ -317,6 +320,7 @@ const Checkout = () => {
                       placeholder="請輸入安全碼"
                       ref={secureCodeInputRef}
                       onChange={secureCodeOnChange}
+                      value={secureCode}
                     ></input>
                   </div>
                 </form>
