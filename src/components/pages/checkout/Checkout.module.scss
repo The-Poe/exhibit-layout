@@ -1,0 +1,300 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+
+.chkoutContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 80vh;
+
+    /*fill the rest page(header lefting space)*/
+    @include pad {
+        flex-wrap: nowrap;
+        height: auto;
+        overflow-x: hidden;
+    }
+
+    .sectionProgress {
+        padding: 20px;
+        height: 10vh;
+        width: 60vw;
+
+        @include pad {
+            order: 1;
+            height: auto;
+            width: 100%;
+        }
+
+        .progress {
+            @include inlineBar($cPink, 100%, 1px, 0, 0, 0.5em, 0);
+            //@mixin inlineBar($clr, $w, $h, $trsX, $trsY, $mv, $mh)
+        }
+
+        .progessStatuses {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .progessStatus {
+            position: relative;
+        }
+
+        .progressDot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid $cPink;
+            left: 50%;
+            top: -15px;
+        }
+    }
+
+    .chkoutContent {
+        width: 60vw;
+        height: 70vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 0.2vw;
+        }
+
+        /* Track */
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        &::-webkit-scrollbar-thumb {
+            background: #a5a5a5;
+        }
+
+        /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+            background: #777676;
+        }
+
+        @include pad {
+            order: 3;
+            height: auto;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: visible;
+        }
+
+        .chkoutItems {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            @include pad {
+                padding: 3vh 0;
+            }
+
+        }
+
+    }
+
+    .chkoutCustomInfo {
+        height: 80vh;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10vh 5vw 0 0;
+
+        @include pad {
+            order: 2;
+            padding: 0 5vw 0 0;
+            height: auto;
+            width: 100VW;
+        }
+
+        .customerFormWrapper {
+            padding: 1vh 2vw;
+
+            @include pad {
+                padding: 3vh 2vw;
+            }
+
+            .formTitle {
+                font-size: calc(8px + 1vmax);
+                font-weight: 700;
+                margin: 2vh 0;
+            }
+
+            .formField {
+                font-size: calc(5px + 1vmax);
+                margin: 2vh 0;
+
+                label {
+                    padding-bottom: 0.2vh;
+                    font-weight: 600;
+                }
+
+                input {
+                    font-size: calc(4px + 1vmax);
+                    width: 100%;
+                    height: 2em;
+                    margin-top: 1vh;
+                    padding: 1vmax 1.2vmax;
+
+                    border: unset;
+                    border-radius: 4px;
+                    outline-color: rgb(84 105 212 / 0.5);
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+                }
+
+                .coupleEffect {
+                    font-size: calc(5px + 1vmax);
+                    padding: 1vmax 0;
+                    float: right;
+                    color: $cPurple;
+                }
+
+            }
+
+        }
+
+        .customerFormWrapper {
+            padding: 1vh 2vw;
+
+            @include pad {
+                padding: 3vh 2vw;
+            }
+
+            .formTitle {
+                font-size: calc(10px + 1vmax);
+                font-weight: 700;
+                margin: 2vh 0;
+            }
+
+            .formField {
+                font-size: calc(5px + 1vmax);
+                margin: 2vh 0;
+
+                label {
+                    padding-bottom: 0.2vh;
+                    font-weight: 600;
+                }
+
+                input {
+                    font-size: calc(4px + 1vmax);
+                    width: 100%;
+                    height: 2em;
+                    margin-top: 1vh;
+                    padding: 1vmax 1.2vmax;
+
+                    border: unset;
+                    border-radius: 4px;
+                    outline-color: rgb(84 105 212 / 0.5);
+                    background-color: rgb(255, 255, 255);
+                    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+                        rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+                }
+
+                .isCoupleEffect {
+                    padding: 1vmax 0;
+                    float: right;
+                    color: $cPurple;
+                }
+
+            }
+
+        }
+
+        .subTotalSection {
+
+            @include pad {
+                margin: 0 2%;
+            }
+
+            .summing {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: calc(6px + 1vmax);
+                font-weight: 700;
+                padding-bottom: 1vh;
+
+                .mh {
+                    margin: 0 0.5em;
+                }
+
+                // .subtotalText{}
+                // .subtotalInfo{}
+            }
+
+            .total {
+                font-size: calc(10px + 1vmax);
+            }
+        }
+
+    }
+}
+
+.chkoutConfirm {
+    height: 10vh;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include pad {
+        order: 5;
+        height: auto;
+        width: 100%;
+        padding-bottom: 3vh;
+    }
+
+    .btnRewind {
+        @include rectBtn(6vw, 0, 0.8em, 0, 3px);
+        width: 25vw;
+        max-width: 100px;
+
+        @include pad {
+            width: 50vw;
+            margin-left: 1vw;
+            max-width: none;
+        }
+    }
+
+    .btnNext {
+        @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+        //@include rectBtn($ml, $mr, $pv, $ph, $br);
+        width: 35vw;
+        background-color: $cPink;
+
+        @include pad {
+            width: 50vw;
+            margin-right: 1vw;
+        }
+    }
+
+    .btnConfirm {
+        @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+        //@include rectBtn($ml, $mr, $pv, $ph, $br);
+        width: 35vw;
+        background-color: $cPink;
+
+        @include pad {
+            width: 47vw;
+            margin-right: 1vw;
+        }
+    }
+}

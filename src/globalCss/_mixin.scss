@@ -8,8 +8,10 @@
     transform: translate(-$left, - $top);
 }
 
-//@include rectBtn(0.25em, 0.25em, 0.5em, 1.5em, 3px);
+//@include rectBtn(0.25em, 0.25em, 0.5em, 0, 3px);
 //@include rectBtn($ml, $mr, $pv, $ph, $br);
+//default method:    width:fit-content;
+//alternative method: width:20% and horizontal padding:0
 @mixin rectBtn($ml, $mr, $pv, $ph, $br) {
     margin-left: $ml;
     margin-right: $mr;
@@ -32,14 +34,15 @@
     margin: $mv $mh;
 }
 
+//depreicated because no dynamic url 
 // @include BGPic("https://images.unsplash.com/photo-1510520001634-6af954f45759?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjN8NjIyNDgyMjB8fGVufDB8fHx8&auto=format&fit=crop&w=500");
 // cons:class need to be unique for url
-@mixin BGPic($url) {
-    background: url($url);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
+// @mixin BGPic($url) {
+//     background: url($url);
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     background-position: center center;
+// }
 
 //@include BGPicInlineURL;
 // need a wrapper div to determine size
@@ -51,13 +54,14 @@
     background-position: center center;
 }
 
+//depreicated pic file too fat
 //@include wholeImg(30vw,30vw);
 // cons:takes too long to load
-@mixin wholeImg($w, $h) {
-    width: $w;
-    height: $h;
-    object-fit: cover;
-}
+// @mixin wholeImg($w, $h) {
+//     width: $w;
+//     height: $h;
+//     object-fit: cover;
+// }
 
 //@include animHoverUp;
 @mixin animHoverUp {
@@ -93,7 +97,7 @@
     }
 }
 
-/*RWD*/
+//RWD
 @mixin desktop-below {
     @media (max-width: 1023px) {
         @content

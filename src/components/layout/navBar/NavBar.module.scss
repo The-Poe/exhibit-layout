@@ -1,0 +1,38 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+.navBar {
+    color: $cGray;
+    background-color: #eee;
+    border: 1px solid #000;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+        color: $cGray;
+        text-decoration: none;
+    }
+}
+
+.navBtn {
+    display: inline-block;
+    padding: 6px calc(1px + 1vmin);
+    margin: 0 calc(1px + 1vmin);
+    border: 2px solid transparent;
+    position: relative;
+
+    /*for ::after*/
+    @include mobile {
+        padding: 6px 0.1vmin;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    @include hoverUnderline;
+
+
+}

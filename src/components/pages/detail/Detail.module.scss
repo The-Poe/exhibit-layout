@@ -1,0 +1,310 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+
+.detail {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10vh 5vw;
+
+    @include pad {
+        padding: 5vh 5vw;
+    }
+
+    .cardMargin {
+        margin: 1.5vh 0;
+    }
+}
+
+.ticketInfo {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+
+    @include pad {
+        flex-direction: column;
+        height: 100%;
+    }
+}
+
+.infoContent {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+
+    @include pad {
+        width: 100%;
+    }
+}
+
+.infoPic {
+    height: 35vh;
+}
+
+.infoDate {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+
+    font-size: calc(2px + 2vmin);
+    color: white;
+    font-weight: 800;
+    letter-spacing: 0.3vw;
+
+    .dateSpan {
+        margin: 10px;
+    }
+
+    .sepBar {
+        @include charDeg(0deg);
+        transform: translate(0, 0);
+
+    }
+}
+
+.infoTitle {
+    font-size: calc(2px + 2vmin);
+    font-weight: 600;
+    margin: 15px 0;
+    letter-spacing: 0.2vw;
+    font-weight: 800;
+}
+
+.infoDesc {
+    margin: 15px 0;
+    line-height: 1.3;
+    font-size: calc(12px + 1vmin);
+    font-weight: 300;
+
+    @include pad {
+        font-size: calc(10px + 1.5vmin);
+        line-height: 1.7;
+    }
+}
+
+.ticketDetail {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    position: relative;
+    margin: 0 2vw;
+
+    @include pad {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+.ticketOptions {
+    display: flex;
+    margin-bottom: 5vh;
+
+    @include pad {
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+.ticketNumber {
+    height: 35vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 15%;
+    align-items: center;
+
+    @include desktop-below {
+        padding-top: 20%;
+    }
+
+    @include pad {
+        height: 100%;
+        padding: 2vh 0;
+        width: 100%;
+    }
+}
+
+.ticketNumberTextWrapper {
+    transform: translate(0.4vw, 0);
+
+    @include pad {
+        transform: translate(1vw, 0);
+    }
+
+    .minus,
+    .plus {
+        cursor: pointer;
+    }
+
+}
+
+
+
+.ticketText {
+    margin: 30px calc(1.5vw);
+    font-size: calc(10px + 3vmin);
+    font-weight: 500;
+
+    @include pad {
+        font-size: calc(20px + 3vmin);
+        font-weight: 700;
+    }
+}
+
+.ticketText2 {
+    margin: 30px 2vw 15px 2vw;
+    font-size: calc(4px + 2vmin);
+    color: $cGray;
+
+    @include pad {
+        font-size: calc(8px + 3vmin);
+        font-weight: 700;
+    }
+}
+
+.ticketText3 {
+    display: inline-block;
+    padding: 10px 0.8vw;
+    font-size: calc(6px + 2vmin);
+    position: relative;
+    @include hoverUnderline;
+
+    @include desktop-below {
+        font-size: calc(6px + 1.5vmin);
+    }
+
+    @include pad {
+        font-size: calc(10px + 3vmin);
+        font-weight: 700;
+        margin: 0 1vw;
+    }
+}
+
+.sepLine {
+    height: 100%;
+    width: 1px;
+    border: 1px solid $cPurple;
+    background-color: $cPurple;
+
+    @include pad {
+        display: none;
+    }
+}
+
+.ticketPrice {
+    height: 35vh;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 15%;
+    align-items: center;
+
+    @include desktop-below {
+        padding-top: 20%;
+    }
+
+    @include pad {
+        height: 100%;
+        padding: 2vh 0;
+        width: 100%;
+    }
+}
+
+.ticketypes {
+    display: flex;
+}
+
+.ticketBtns {
+    display: flex;
+    width: 100%;
+
+}
+
+.ticketBtn {
+    //@include rectBtn($mr, $pv, $ph, $br);
+
+    @include rectBtn(1em, 1em, 0.7em, 15%, 3px);
+
+    @include pad {
+        @include rectBtn(0.3em, 0.3em, 0.7em, 17%, 3px);
+    }
+
+    text-align: center;
+    width: 50%;
+}
+
+.wallpaper {
+    width: 100%;
+    height: 50vh;
+    background-color: $cGray;
+
+    @include pad {
+        order: 3;
+    }
+
+    // .wallpaperPic {
+    //     @include wholeImg(35vmax, 100%);
+    //     display: block;
+    //     min-height: 100%;
+
+    //     @include pad {
+    //         @include wholeImg(100%, auto);
+    //     }
+    // }
+}
+
+.detailPic {
+    width: 30%;
+    height: 70vh;
+    background-color: $cPurple;
+
+    @include pad {
+        order: 4;
+        width: 100%;
+    }
+}
+
+.detailContent {
+    width: 70%;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+
+    @include pad {
+        order: 2;
+        width: 100%;
+        height: auto;
+    }
+
+    .cntnTitle {
+        font-size: calc(10px + 2vmin);
+        font-weight: 600;
+        padding: 20px 0 0 2vw;
+        letter-spacing: 0.5vw;
+        font-weight: 800;
+    }
+
+    .cntnDesc {
+        color: $cGray;
+        padding: 1em 0 1em 2vw;
+        line-height: 1.3;
+        font-size: calc(3px + 2vmin);
+        font-weight: 300;
+
+        @include pad {
+            order: 2;
+            width: 100%;
+            height: auto;
+            font-size: calc(8px + 2vmin);
+            line-height: 1.5;
+        }
+    }
+
+
+
+}

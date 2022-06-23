@@ -1,3 +1,4 @@
+@import './_mixin.scss';
 @import './_variables.scss';
 
 /*color*/
@@ -15,6 +16,10 @@
 }
 
 /*text*/
+.textCenter {
+    text-align: center;
+}
+
 .textWhite {
     color: white;
 }
@@ -29,6 +34,15 @@
 
 .textNoUnderline {
     text-decoration: none;
+}
+
+/*padding*/
+.pr2em {
+    padding-right: 2em;
+}
+
+.pt2em {
+    padding-top: 2em;
 }
 
 /*border*/
@@ -54,6 +68,13 @@
     justify-content: flex-end;
 }
 
+.jccc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 /*display*/
 .inlBlk {
     display: inline-block;
@@ -73,4 +94,48 @@
 
 .opacity1 {
     opacity: 1;
+}
+
+/***below corresponding elements should be refactor as a react UI component***/
+
+.sectionContainer {
+    margin: 5%;
+    background-color: white;
+    padding: 2vmin 3vmin;
+}
+
+.sectionContainerTitle {
+    font-size: 40px;
+    font-weight: 600;
+    padding: 20px 10px;
+}
+
+.iconFb {
+    display: inline-block;
+    margin: 0 2vw 0 1vw;
+    width: 20px;
+    transform: translate(0, 2px);
+
+    &:hover {
+        cursor: pointer;
+    }
+
+}
+
+/*overlay index*/
+
+.modalTopOverlayZIndex {
+    z-index: 100;
+}
+
+.modalTopBackdropZIndex {
+    z-index: 99;
+}
+
+.modalSecondOverlayZIndex {
+    z-index: 98;
+}
+
+.modalSecondBackdropZIndex {
+    z-index: 97;
 }

@@ -1,0 +1,83 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+
+.chkoutContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5% 20%;
+    height: 90vh;
+
+    @include pad {
+        padding: 5% 10%;
+        height: auto;
+    }
+
+    .iconContainer {
+        .checkIcon {
+            color: $cPurple;
+        }
+
+        .checkText {
+            color: $cPurple;
+            font-size: calc(8px + 1vmax);
+            font-weight: 600;
+            margin-top: 1%;
+            margin-bottom: 1%;
+        }
+
+    }
+
+    .confirmText1 {
+        align-self: flex-start;
+        font-size: calc(8px + 1vmax);
+        font-weight: 600;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+
+    .ticketCode {
+        color: $cPurple;
+        font-size: calc(15px + 1vmax);
+        font-weight: 600;
+
+    }
+
+    .checkOutItems {
+        text-align: center;
+        margin: 1.5rem 0;
+    }
+
+    .checkOutItem {
+        text-align: center;
+        margin: 0.5rem 0;
+    }
+
+    .confirmText2 {
+        align-self: flex-start;
+        font-size: calc(8px + 1vmax);
+        line-height: 1.5;
+        letter-spacing: 0.2vw;
+        font-weight: 600;
+        margin-top: 5%;
+        margin-bottom: 15%;
+    }
+
+
+
+    .btnsContainer {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .btn {
+            @include rectBtn(1vw, 5vw, 0.8em, 0, 3px);
+            //@include rectBtn($ml, $mr, $pv, $ph, $br);
+            width: 26vw;
+        }
+    }
+
+}

@@ -6,9 +6,17 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { Provider } from "react-redux";
+import store from "store/configureStore";
+import { UIAuthContextProvider } from "context/UIContext";
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <UIAuthContextProvider>
+        <App />
+      </UIAuthContextProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -1,0 +1,27 @@
+@import 'globalCss/_variables.scss';
+@import 'globalCss/_mixin.scss';
+
+.profile {
+    margin: 0 1vw;
+    color: $cGray;
+    @include animHoverUp;
+
+    div {
+        display: inline-block;
+
+        &::before {
+            content: attr(data-before-content) // content: "Log in/Sign Up"
+        }
+
+        @include pad {
+            &::before {
+                content: "";
+            }
+
+            width: 1.5rem;
+            height: 1.5rem;
+            background: center/cover no-repeat url(https://icons.veryicon.com/png/o/application/mobile-terminal-1/profile-38.png);
+        }
+    }
+
+}
