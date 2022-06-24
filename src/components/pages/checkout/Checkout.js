@@ -16,6 +16,7 @@ import { orderInfoActions } from "store/orderInfoSlice";
 import styles from "./Checkout.module.scss";
 import CheckoutItem from "./CheckoutItem";
 
+let initialLoad = true;
 const Checkout = () => {
   const [checkoutStatus, setCheckoutStatus] = useState(1);
   const authUser = useSelector((state) => state.authUserReducer.authUser);
@@ -64,34 +65,44 @@ const Checkout = () => {
     /****************************/
     /**Query with multiple docs**/
     /****************************/
-    async function queryForDocs() {
-      console.log("queryForDocs() called");
-      const customerOrderQuery = query(
-        collection(firestore, "campaigns"),
-        where("couponCode", "==", couponCode),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(customerOrderQuery);
-      console.log("couponCode:", couponCode);
-      console.log("querySnapshot.docs:", querySnapshot.docs);
-      if (querySnapshot.docs.length === 0) {
-        setCouponDiscount(0);
-        setIsCouponEffect(false);
-        setfinalPrice(sumPrice);
-      } else if (querySnapshot.docs.length > 0) {
-        querySnapshot.forEach((snap) => {
-          console.log(
-            `Query Doc ${snap.id} contains ${JSON.stringify(snap.data())}`
-          );
-          setCouponDiscount(snap.data().couponDiscount);
-          if (snap.data().couponType.toLowerCase() === "minus") {
-            setfinalPrice(sumPrice - couponDiscount);
-          }
-          setIsCouponEffect(true);
-        });
+    if (initialLoad === false) {
+      async function queryForDocs() {
+        console.log("queryForDocs() called");
+        const customerOrderQuery = query(
+          collection(firestore, "campaigns"),
+          where("couponCode", "==", couponCode),
+          limit(1)
+        );
+        const querySnapshot = await getDocs(customerOrderQuery);
+        console.log("couponCode:", couponCode);
+        console.log("querySnapshot.docs:", querySnapshot.docs);
+        if (querySnapshot.docs.length === 0) {
+          setCouponDiscount(0);
+          setIsCouponEffect(false);
+          setfinalPrice(sumPrice);
+        } else if (querySnapshot.docs.length > 0) {
+          querySnapshot.forEach((snap) => {
+            console.log(
+              `Query Doc ${snap.id} contains ${JSON.stringify(snap.data())}`
+            );
+            setCouponDiscount(snap.data().couponDiscount);
+            if (snap.data().couponType.toLowerCase() === "minus") {
+              setfinalPrice(sumPrice - couponDiscount);
+            }
+            setIsCouponEffect(true);
+          });
+        }
       }
+      const debouncer = setTimeout(() => {
+        queryForDocs();
+      }, 500);
+
+      return () => {
+        clearTimeout(debouncer);
+        console.log("cleanup");
+      };
     }
-    queryForDocs();
+    initialLoad = false;
   }, [couponCode, couponDiscount, sumPrice]);
 
   const creditCardOnChange = () => {
