@@ -48,16 +48,9 @@ export const cartReducer = (state, action) => {
           items: state.items.map((item) => {
             if (item.id === newItem.id) {
               return {
-                id: item.id,
-                price: item.price,
-                startDate: item.startDate,
-                startMonth: item.startMonth,
-                endDate: item.endDate,
-                endMonth: item.endMonth,
+                ...item,
                 quantity: item.quantity + newItemQuantity,
                 totalPrice: item.totalPrice + newItemSumPrice,
-                title: item.title,
-                picUrl: item.picUrl,
               };
             } else return item;
           }),
