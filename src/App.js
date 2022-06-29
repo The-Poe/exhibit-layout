@@ -9,7 +9,6 @@ import Product from "components/pages/product/Product";
 import { useSelector, useDispatch } from "react-redux";
 import { UIAuthActions } from "store/UISlices";
 import ShowModal from "components/features/showModal/ShowModal";
-import AuthForm from "components/features/auth/AuthForm";
 import ScrollToTop from "components/features/ScrollToTop";
 import LoadingSpinner from "components/UI/LoadingSpinner";
 import { PageNotFound } from "components/pages/pageNotFound/PageNotFound";
@@ -19,6 +18,7 @@ const Checkout = React.lazy(() => import("components/pages/checkout/Checkout"));
 const CheckoutDone = React.lazy(() =>
   import("components/pages/checkout/CheckoutDone")
 );
+const AuthForm = React.lazy(() => import("components/features/auth/AuthForm"));
 
 function App() {
   const authIsShow = useSelector((state) => state.UIAuthReducer.authIsShow);
@@ -33,14 +33,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <ShowModal
-          className={authClasses}
-          modalLayer="second"
-          onClose={toggleShowAuthHangdler}
-          ModalContent={<AuthForm onClose={toggleShowAuthHangdler} />}
-        />
-        <Header />
-        <ScrollToTop />
         <Suspense
           fallback={
             <div className="jccc pt2em">
@@ -48,6 +40,15 @@ function App() {
             </div>
           }
         >
+          <ShowModal
+            className={authClasses}
+            modalLayer="second"
+            onClose={toggleShowAuthHangdler}
+            ModalContent={<AuthForm onClose={toggleShowAuthHangdler} />}
+          />
+          <Header />
+          <ScrollToTop />
+
           <Switch>
             <Route exact path="/">
               <Home />

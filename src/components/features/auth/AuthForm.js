@@ -41,38 +41,31 @@ const AuthForm = (props) => {
     setIsLoading(true);
     let AuthUser;
     try {
-      try {
-        if (isLoginMode) {
-          AuthUser = await signInWithEmailAndPassword(
-            firebaseAuth,
-            enteredEmail,
-            enteredPassword
-          );
-        } else {
-          AuthUser = await createUserWithEmailAndPassword(
-            firebaseAuth,
-            enteredEmail,
-            enteredPassword
-          );
-        }
-        console.log("AuthUser:", AuthUser);
-      } catch (err) {
-        console.log("err from first try:", err.message);
-        setError(err.message);
-        console.log("state error:", error);
-        setIsLoading(false);
-        return;
+      if (isLoginMode) {
+        AuthUser = await signInWithEmailAndPassword(
+          firebaseAuth,
+          enteredEmail,
+          enteredPassword
+        );
+      } else {
+        AuthUser = await createUserWithEmailAndPassword(
+          firebaseAuth,
+          enteredEmail,
+          enteredPassword
+        );
       }
-
-      // logInAuthUserHangdler(JSON.stringify(AuthUser));
-      setIsLoading(false);
-      passwordInputRef.current.value = "";
-      props.onClose();
-      history.replace("/");
+      console.log("AuthUser:", AuthUser);
     } catch (err) {
+      console.log("auth to firebase err:", err.message);
+      setError(err.message);
       setIsLoading(false);
-      console.log("err from second try:", err.message);
+      return;
     }
+    // logInAuthUserHangdler(JSON.stringify(AuthUser));
+    setIsLoading(false);
+    passwordInputRef.current.value = "";
+    props.onClose();
+    history.replace("/");
   };
 
   const errorHandler = () => {
