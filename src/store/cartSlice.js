@@ -6,14 +6,10 @@ import { firestore } from "firebaseConfig";
 import { doc, setDoc } from "firebase/firestore";
 
 const initialCartState = { items: [], totalQuantity: 0, sumPrice: 0 };
-
 /**
  *  Actions that need to be observed by Epic, otherwise use default action created by createSlice.
  */
-
 export const pushToFirebaseCart = createAction("PUSH_TO_FIREBASE_CART");
-// export const removeOneItemFromCart = createAction("REMOVE_ONE_ITEM_FROM_CART");
-// export const deleteItemFromCart = createAction("DELETE_ITEM_FROM_CART");
 
 /**
  *  Epic (need to be combined in combinedReducerEpic.js)
@@ -95,29 +91,6 @@ const cartSlice = createSlice({
       state.sumPrice = state.sumPrice - existingItem.totalPrice;
     },
   },
-  // extraReducers: (builder) => {
-  //   builder
-  //     .addCase(removeOneItemFromCart, (state, action) => {
-  //             const id = action.payload;
-  //             const existingItem = state.items.find((item) => item.id === id);
-  //             if (existingItem.quantity === 1) {
-  //               state.items = state.items.filter((item) => item.id !== id);
-  //             } else {
-  //               existingItem.quantity--;
-  //               existingItem.totalPrice =
-  //                 existingItem.totalPrice - existingItem.price;
-  //             }
-  //             state.totalQuantity--;
-  //             state.sumPrice = state.sumPrice - existingItem.price;
-  //     })
-  //     .addCase(deleteItemFromCart, (state, action) => {
-  //       const id = action.payload;
-  //       const existingItem = state.items.find((item) => item.id === id);
-  //       state.items = state.items.filter((item) => item.id !== id);
-  //       state.totalQuantity = state.totalQuantity - existingItem.quantity;
-  //       state.sumPrice = state.sumPrice - existingItem.totalPrice;
-  //     });
-  // },
 });
 
 export const cartActions = cartSlice.actions;
