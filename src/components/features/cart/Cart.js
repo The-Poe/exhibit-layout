@@ -6,9 +6,9 @@ import CartItem from "./CartItem";
 import ShowModal from "../showModal/ShowModal";
 import NotificationOverlay from "../showModal/NotificationOverlay";
 import { Link } from "react-router-dom";
-import { cartActions } from "store/cartSlice";
+import { cartActions, pushToFirebaseCart } from "store/cartSlice";
 import { firestore } from "firebaseConfig";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 
 let cartFetchedFromFirebase = false;
 
@@ -29,18 +29,8 @@ const Cart = () => {
     }
     //Cart有變動就更新到Firestore
     if (authUserEmail && cartFetchedFromFirebase) {
-      //指名到文件"集合(collection)/文件(doc)"(偶數配對)才可以使用Doc path
-      const firebaseAccessCurrentUserCart = doc(
-        firestore,
-        `carts/${authUserEmail}`
-      );
-      /**add/update data **/
-      const setDocToFirebase = async () => {
-        setDoc(firebaseAccessCurrentUserCart, cart) //覆蓋
-          .then(() => console.log("the setDoc() promise has fullfilled! ")) //won't be called when offline
-          .catch((err) => console.log("the setDoc() got error:", err));
-      };
-      setDocToFirebase();
+      //throttling will be done by epic in cartSlice.js
+      dispatch(pushToFirebaseCart({ authUserEmail, cart }));
     }
 
     //初次載入抓到登入狀態並同步會員手推車之後，手推車後續才會同步
