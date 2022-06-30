@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 /*Toggle show Auth UI*/
 const initialAuthUserState = { authUser: "null" };
 const authUserSlice = createSlice({
-  name: "authUserSlices(NameforBrowserInspect)",
+  name: "authUserSlice(NameforBrowserInspect)",
   initialState: initialAuthUserState,
   reducers: {
     logInAuthUser(state, action) {

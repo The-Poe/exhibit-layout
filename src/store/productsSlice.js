@@ -45,7 +45,7 @@ const initialProductsState = {
 };
 
 const productsSlice = createSlice({
-  name: "productsSlices(NameforBrowserInspect)",
+  name: "productsSlice(NameforBrowserInspect)",
   initialState: initialProductsState,
   reducers: {
     /*not used for now*/

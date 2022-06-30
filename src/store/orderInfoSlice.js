@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialOrderInfoState = { orderId: "", items: [] };
 
 const orderInfoSlice = createSlice({
-  name: "orderInfoSlices(NameforBrowserInspect)",
+  name: "orderInfoSlice(NameforBrowserInspect)",
   initialState: initialOrderInfoState,
   reducers: {
     replaceOrderId(state, action) {
