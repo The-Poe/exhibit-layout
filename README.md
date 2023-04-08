@@ -10,5 +10,5 @@
  - Using RxJS to implement debounce and throttling in redux thunk.
  - Firebase servises: Hosting, Firestore Database, Authentication.
 
- 
+ ![image](https://github.com/The-Poe/exhibit-layout/blob/main/SCR-20230408-qbs.png)
  
