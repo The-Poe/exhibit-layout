@@ -7,8 +7,8 @@
  - Simple Shopping cart function
  - Simple Implementation of Redux
  - Rwd: flex column based design, easy to adjust to Mobile layout.
- - using RxJS to implement debounce and throtling in redux thunk.
- - firebase servise: Hosting, Firestore Database, Authentication.
+ - Using RxJS to implement debounce and throttling in redux thunk.
+ - Firebase servises: Hosting, Firestore Database, Authentication.
 
  
  
